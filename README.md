@@ -1,2 +1,2 @@
-# Avater-Legend-of-VR
+# Avater: Legend of VR
 Repository for the "Human-robot-interaction" project "Avater: Legend of VR". 
