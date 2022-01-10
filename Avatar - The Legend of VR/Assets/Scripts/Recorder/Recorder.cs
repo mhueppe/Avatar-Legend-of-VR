@@ -36,10 +36,7 @@ public class Recorder : MonoBehaviour
     /// Indicating whether the recording has started or not.
     /// </summary>
     private bool _hasRecordingStarted = false;
-    /// <summary>
-    /// The time stamp of the last recording.
-    /// </summary>
-    private float _timeSinceLastRecording = 0;
+    
     /// <summary>
     /// The time the recording started.
     /// </summary>
@@ -204,7 +201,6 @@ public class Recorder : MonoBehaviour
         _recordables = new List<IRecordable>();
 
         _hasRecordingStarted = false;
-        _timeSinceLastRecording = 0f;
     }
 
     private void OnDisable()

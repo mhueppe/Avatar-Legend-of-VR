@@ -12,10 +12,12 @@ public class GameObjectRecordable : IRecordable
     // !!! If renamed, change RecordedObjPropertyDrawer.OnGUI(), FindPropertyRelative("newname") as well. !!!
     // all of them are private and serialized so the editor can access these properties. (although not all of them will be visible in the Editor)
 #if UNITY_EDITOR
+#pragma warning disable 0414
     /// <summary>
     /// Important for the RecordedObjPropertyDrawer to save its state.
     /// </summary>
     [SerializeField] private int selectedIdx = 0;
+#pragma warning restore 0414
 #endif
     
     /// <summary>
@@ -143,7 +145,7 @@ public class GameObjectRecordable : IRecordable
         {
             objectName = objectToRecord != null ? objectToRecord.name : null; 
         // will be thrown if the gameObject was destroyed. (I don't know how to check for that without this exception being thrown.
-        } catch (MissingReferenceException mre){} 
+        } catch (MissingReferenceException){} 
                 
         Debug.LogAssertion($"Header name: {headerName}, member: '{propertyName}' in component: '{componentName}' from game object: '{objectName}' threw an exception: {e.Message}");
 
