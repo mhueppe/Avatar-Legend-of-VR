@@ -1,0 +1,80 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Questionaire/UI/questionaire.uss?fileID=7433441132597879392&amp;guid=a62e6e9507ec7304996d74e326f72787&amp;type=3#questionaire" />
+    <ui:VisualElement name="Background" style="-unity-background-image-tint-color: rgb(166, 166, 166); background-color: rgb(56, 56, 56);">
+        <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="Questionaire">
+            <ui:VisualElement name="screen" style="flex-grow: 1; margin-left: 20%; margin-right: 20%; margin-top: 3%; margin-bottom: 3%;">
+                <ui:VisualElement name="headings">
+                    <ui:Label text="Questionnaire" name="header" style="-unity-font-style: bold; font-size: 100%;" />
+                    <ui:Label text="Willkommen zu unser Human- Robot-Studie. Im Folgenden werden ein Paar Fragen zu Erscheinungsbildern und was Sie an diesen für angenehm/unangenehm, schön/unschön halten. Probieren Sie die Fragen so ehrlich wie möglich zu beantworten. " display-tooltip-when-elided="true" name="introduction" style="white-space: normal; -unity-text-outline-width: 0;" />
+                    <ui:HelpBox text="Disclaimer: Mit diesen Fragen möchten wir niemanden zu nahe treten, beleidigen oder ausschließen. Wenn Sie sich mit einer Frage unwohl fühlen, müssen Sie diese nicht beantworten." message-type="Warning" name="the-uxml-help-box" style="padding-left: 5px; padding-right: 5px; padding-top: 1px; padding-bottom: 1px; margin-top: 4px; margin-left: 3px; margin-right: 3px; background-color: rgb(63, 63, 63); border-left-color: rgb(27, 27, 27); border-right-color: rgb(27, 27, 27); border-top-color: rgb(27, 27, 27); border-bottom-color: rgb(27, 27, 27);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="body" style="flex-grow: 1; padding-top: 20px;">
+                    <ui:TextField picking-mode="Ignore" label="1. How old are you?" max-length="3" name="age" class="question-margin" style="justify-content: space-between;" />
+                    <ui:DropdownField label="2. Please indicate your sex" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="sex" class="question-margin" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;" />
+                    <ui:VisualElement name="skin-color" class="question-margin" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;">
+                        <ui:Label text="3. Please indicate your preferred color of skin" display-tooltip-when-elided="true" />
+                        <ui:VisualElement name="colors" style="flex-direction: column; margin-left: 16px;">
+                            <ui:VisualElement name="row-1" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button" style="background-color: rgb(65, 31, 29);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(43, 0, 1);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(117, 68, 61);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(196, 133, 99);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(191, 121, 90);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(225, 147, 125);" />
+                                <ui:Button class="color-pick-button" style="background-image: url(&apos;project://database/Assets/x.png?fileID=2800000&amp;guid=bb82ecb85714a4949bc3309933dbfc79&amp;type=3#x&apos;); background-color: rgba(56, 56, 56, 0);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="row-2" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button" style="background-color: rgb(88, 48, 57);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(62, 27, 18);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(190, 131, 105);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(213, 150, 121);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(201, 136, 103);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(244, 188, 170);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="row-3" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button" style="background-color: rgb(112, 68, 69);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(77, 36, 11);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(236, 171, 138);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(230, 170, 147);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(219, 149, 118);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(254, 219, 199);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="row-4" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button" style="background-color: rgb(184, 111, 111);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(92, 46, 23);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(188, 114, 107);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(230, 192, 173);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(250, 194, 163);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(252, 231, 220);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="row-5" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button" style="background-color: rgb(240, 197, 184);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(104, 48, 33);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(222, 149, 133);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(240, 198, 189);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(248, 203, 171);" />
+                                <ui:Button class="color-pick-button" style="background-color: rgb(252, 222, 207);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <Game.UI.ColorField name="hair-color" label="4. What hair color do you like particularly?" reset-label="Reset" class="question-margin" />
+                    <ui:DropdownField label="5. What hair length do you like most?" index="-1" name="hair-length" class="question-margin" />
+                    <ui:DropdownField label="6. What hairy type do you prefer?" index="-1" name="hair-type" class="question-margin" />
+                    <ui:DropdownField label="7. What body type do you prefer?" index="-1" name="body-type" class="question-margin" />
+                    <Game.UI.ColorField name="eye-color" label="8. What eye color do you find appealing?" reset-label="Reset" class="question-margin" />
+                    <ui:DropdownField label="9. What clothing style do you visually prefer?" index="-1" name="clothing-style" class="question-margin" />
+                    <Game.UI.ColorField name="favourite-color" label="10. What&apos;s your favourite color?" reset-label="Reset" class="question-margin" />
+                    <ui:RadioButtonGroup label="11. Do you like glasses?" value="-1" name="likes-glasses" class="question-margin horizontal-flex" />
+                    <ui:RadioButtonGroup label="12. Do you like braces?" value="-1" name="likes-braces" class="question-margin horizontal-flex" />
+                    <ui:RadioButtonGroup label="13. Do you like piercings?" value="-1" name="likes-piercings" class="question-margin horizontal-flex" />
+                    <ui:RadioButtonGroup label="14. Do you like tattoos?" value="-1" name="likes-tattoos" class="question-margin horizontal-flex" />
+                    <ui:RadioButtonGroup label="15. Do you like jewelry?" value="-1" name="likes-jewelry" class="question-margin horizontal-flex" />
+                </ui:VisualElement>
+                <ui:VisualElement name="bottom" style="margin-top: 20px; flex-direction: row-reverse;">
+                    <ui:Button text="Continue" name="continue" focusable="false" style="width: 8%; min-width: 70px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:ScrollView>
+    </ui:VisualElement>
+    <Game.UI.ColorPopup name="color-popup" start-visible="false" />
+</ui:UXML>
