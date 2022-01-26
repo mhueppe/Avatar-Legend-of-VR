@@ -15,6 +15,7 @@ public class Card : MonoBehaviour
 
     public void highlight(){
         Outline outline; 
+        Debug.Log("In highlight");
         outline = this.gameObject.GetComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
         outline.OutlineColor = new Color(0.78f, 0.41f, 0.39f);
