@@ -1,0 +1,12 @@
+#heading {
+    font-size: 150%;
+    color: rgb(95, 91, 90);
+    -unity-text-align: middle-center;
+}
+
+#start-experiment {
+    color: rgb(172, 141, 133);
+    border-radius: 7px;
+    background-color: rgb(38, 34, 33);
+    border-color: rgb(172, 141, 133);
+}
