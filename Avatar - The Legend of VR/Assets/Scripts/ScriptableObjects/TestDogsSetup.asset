@@ -12,5 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5d67d720ef44c43afd8317751d2b03, type: 3}
   m_Name: TestDogsSetup
   m_EditorClassIdentifier: 
-  THis: 0
-  String: 
+  handCards: 08000000040000000400000005000000080000000d000000
+  swappedCard: 0
+  redTeam:
+    positionPiece1: 0
+    positionPiece2: 0
+    positionPiece3: 0
+    positionPiece4: 0
+  blueTeam:
+    positionPiece1: 0
+    positionPiece2: 0
+    positionPiece3: 0
+    positionPiece4: 0
+  greenTeam:
+    positionPiece1: 0
+    positionPiece2: 0
+    positionPiece3: 0
+    positionPiece4: 0
+  yellowTeam:
+    positionPiece1: 0
+    positionPiece2: 0
+    positionPiece3: 0
+    positionPiece4: 0
