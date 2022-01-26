@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/WelcomeScene/UI/welcome.uss?fileID=7433441132597879392&amp;guid=1e45da6085d043179ef2baa028a47546&amp;type=3#welcome" />
+    <ui:VisualElement name="background" style="background-image: url(&apos;project://database/Assets/wallpaperflare.com_wallpaper.jpg?fileID=2800000&amp;guid=b3168c638bbdaea44b709abeea6ec48d&amp;type=3#wallpaperflare.com_wallpaper&apos;); flex-grow: 1; -unity-background-scale-mode: scale-and-crop;">
+        <ui:VisualElement style="flex-grow: 1; margin-left: 20%; margin-right: 20%; align-items: center; top: auto; justify-content: center; width: auto; height: auto;">
+            <ui:Label name="heading" text="Welcome!" style="flex-grow: 0; width: auto; font-size: 100%;" />
+            <ui:Button name="start-experiment" text="Start experiment" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
