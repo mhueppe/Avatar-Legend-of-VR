@@ -75,6 +75,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
         </ui:ScrollView>
+        <Game.UI.ColorPopup name="color-popup" start-visible="false" />
     </ui:VisualElement>
-    <Game.UI.ColorPopup name="color-popup" start-visible="false" />
+    <ui:VisualElement style="background-color: rgb(56, 56, 56);" />
 </ui:UXML>

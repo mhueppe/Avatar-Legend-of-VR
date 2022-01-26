@@ -9,7 +9,7 @@ namespace Game.UI
 		[UnityEngine.Scripting.Preserve]
 		public new class UxmlFactory : UxmlFactory<ColorPopup, UxmlTraits> { }
 
-		public string Heading { get; set; } = "Pick a Colour";
+		public string Heading { get; set; } = "Pick Colour";
 		public string ButtonLabel { get; set; } = "Submit";
 
 		private float H, S, V, A;
@@ -34,6 +34,10 @@ namespace Game.UI
 		private const string ussHeading = ussPopupClassName + "__heading";
 		private const string ussButtonsBar = ussPopupClassName + "__buttons-bar";
 		private const string ussSubmitButton = ussPopupClassName + "__submit-button";
+		private const string ussRSlider = ussPopupClassName + "__red-slider";
+		private const string ussGSlider = ussPopupClassName + "__green-slider";
+		private const string ussBSlider = ussPopupClassName + "__blue-slider";
+		private const string ussASlider = ussPopupClassName + "__alpha-slider";
 		private const string ussGradientArea = ussPopupClassName + "__gradient-area";
 		private const string ussGradientSlider = ussPopupClassName + "__gradient-slider";
 		private const string ussHueSlider = ussPopupClassName + "__hue-slider";
@@ -80,7 +84,7 @@ namespace Game.UI
 			gradientArea.Add(gradientSlider);
 
 			// hue slider
-			hueSlider = new Slider(null, 0f, 360f, SliderDirection.Vertical, 0f);
+			hueSlider = new UnityEngine.UIElements.Slider(null, 0f, 360f, SliderDirection.Vertical, 0f);
 			hueSliderDragger = hueSlider.Q("unity-dragger");
 			hueSlider.AddToClassList(ussHueSlider);
 			gradientArea.Add(hueSlider);
@@ -95,7 +99,7 @@ namespace Game.UI
 			buttons.Add(submitButton);
 
 			submitButton.clicked += OnSubmitButton;
-
+			
 			hueSlider.RegisterValueChangedCallback(SetColorFromHueSlider);
 			gradientSlider.RegisterValueChangedCallback(SetColorFromGradientSlider);
 		}
@@ -159,7 +163,33 @@ namespace Game.UI
 			H = ev.newValue / 360f; // hue slider value 0..360
 			OnColorChanged(false, true);
 		}
-		
+
+		private void SetColorFromRSliders(float value)
+		{
+			Color c = Color.HSVToRGB(H, S, V);
+			c.r = value;
+			Color.RGBToHSV(c, out H, out S, out V);
+			OnColorChanged(true, true);
+		}
+
+		private void SetColorFromGSliders(float value)
+		{
+			Color c = Color.HSVToRGB(H, S, V);
+			c.g = value;
+			Color.RGBToHSV(c, out H, out S, out V);
+			OnColorChanged(true, true);
+		}
+
+		private void SetColorFromBSliders(float value)
+		{
+			Color c = Color.HSVToRGB(H, S, V);
+			c.b = value;
+			Color.RGBToHSV(c, out H, out S, out V);
+			OnColorChanged(true, true);
+		}
+
+		// ------------------------------------------------------------------------------------------------------------
+
 		private void OnColorChanged(bool updateHue, bool updateGradient)
 		{
 			var c = Color.HSVToRGB(H, S, V);

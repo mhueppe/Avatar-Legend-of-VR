@@ -34,7 +34,7 @@ namespace Game.UI
 			MinValue = min;
 			MaxValue = max;
 
-			// styleSheets.Add(Resources.Load<StyleSheet>(stylesResource));
+			styleSheets.Add(Resources.Load<StyleSheet>(stylesResource));
 			AddToClassList(ussFieldName);
 
 			dragBorderElement = new VisualElement() { name = "dragger-border", pickingMode = PickingMode.Ignore };

@@ -24,7 +24,7 @@ public class Questionaire : MonoBehaviour
     [SerializeField] private Color unselectedColorBorderColor = new(27,27,27);
     [SerializeField] private Color selectedColorBorderColor = Color.green;
 
-    private Game.UI.ColorField _hairColor;
+    private ColorField _hairColor;
     
     private DropdownField _hairLength;
 
@@ -32,11 +32,11 @@ public class Questionaire : MonoBehaviour
 
     private DropdownField _bodyType;
 
-    private Game.UI.ColorField _eyeColor;
+    private ColorField _eyeColor;
 
     private DropdownField _clothingStyle;
 
-    private Game.UI.ColorField _favouriteColor;
+    private ColorField _favouriteColor;
 
     private RadioButtonGroup _likesGlasses;
     
@@ -72,7 +72,7 @@ public class Questionaire : MonoBehaviour
 
         _hairColor = root.Q<Game.UI.ColorField>("hair-color");
         _hairColor.ColorPopup = colorPopup;
-        _hairColor.RegisterOnResetButton(() => _hairColor.value = new Color(80, 60, 50));
+        _hairColor.ResetButtonPressed += () => _hairColor.value = new Color(80, 60, 50);
         _hairColor.OnResetButton();
         
         _hairLength = root.Q<DropdownField>("hair-length");
@@ -86,7 +86,7 @@ public class Questionaire : MonoBehaviour
 
         _eyeColor = root.Q<Game.UI.ColorField>("eye-color");
         _eyeColor.ColorPopup = colorPopup;
-        _eyeColor.RegisterOnResetButton(() => _eyeColor.value = new Color(0.2311321f, 0.2311321f, 1f));
+        _eyeColor.ResetButtonPressed += () => _eyeColor.value = new Color(0.2311321f, 0.2311321f, 1f);
         _eyeColor.OnResetButton();
         
         _clothingStyle = root.Q<DropdownField>("clothing-style");
@@ -94,7 +94,7 @@ public class Questionaire : MonoBehaviour
 
         _favouriteColor = root.Q<Game.UI.ColorField>("favourite-color");
         _favouriteColor.ColorPopup = colorPopup;
-        _favouriteColor.RegisterOnResetButton(() => _favouriteColor.value = Color.blue);
+        _favouriteColor.ResetButtonPressed += () => _favouriteColor.value = Color.blue;
         _favouriteColor.OnResetButton();
 
         _likesGlasses = root.Q<RadioButtonGroup>("likes-glasses");
@@ -167,7 +167,7 @@ public class Questionaire : MonoBehaviour
 
     }
 
-    private bool WasChanged(Game.UI.ColorField color) => color.value != Color.black; 
+    private bool WasChanged(ColorField color) => color.value != Color.black; 
     private bool WasChanged(TextField field) => !string.IsNullOrEmpty(field.value);
     private bool WasChanged(DropdownField field) => field.index != -1;
     private bool WasChanged(RadioButtonGroup group) => group.value != -1;

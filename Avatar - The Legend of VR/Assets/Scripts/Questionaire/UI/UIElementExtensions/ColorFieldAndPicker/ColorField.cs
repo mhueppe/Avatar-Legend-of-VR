@@ -1,4 +1,4 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,58 +6,65 @@ namespace Game.UI
 {
 	public class ColorField : BaseField<Color>
 	{
-		#region UXML
-		
 		[UnityEngine.Scripting.Preserve]
 		public new class UxmlFactory : UxmlFactory<ColorField, UxmlTraits> { }
 
 		[UnityEngine.Scripting.Preserve]
 		public new class UxmlTraits : BaseFieldTraits<Color, UxmlColorAttributeDescription>
 		{
-			private readonly UxmlStringAttributeDescription _resetLabel = new UxmlStringAttributeDescription { name = "reset-label", defaultValue = null };
+			private readonly UxmlStringAttributeDescription resetLabel = new UxmlStringAttributeDescription { name = "reset-label", defaultValue = null };
 
 			public override void Init(VisualElement ve, IUxmlAttributes bag, CreationContext cc)
 			{
 				base.Init(ve, bag, cc);
 				var item = ve as ColorField;
-				item!._colorFieldInput.resetLabel = _resetLabel.GetValueFromBag(bag, cc);
-				item._colorFieldInput.UpdateResetButton();
+				item.resetLabel = resetLabel.GetValueFromBag(bag, cc);
+				item.UpdateResetButton();
 			}
 		}
-		
-		#endregion
-		
-		public ColorPopup ColorPopup { get; set; }
-		
-		private readonly ColorFieldInput _colorFieldInput;
 
-		private const string StylesResource = "GameUI/Styles/ColorFieldStyleSheet";
-		private const string USSFieldName = "color-field";
-		private const string USSFieldLabel = "color-field__label";
-		private const string USSFieldResetButton = "color-field__reset-button";
-		
+		public event System.Action ResetButtonPressed;
+		public ColorPopup ColorPopup { get; set; }
+
+		private string resetLabel = null;
+		private ColorFieldInput colorFieldInput;
+		private Button resetButton;
+
+		private const string stylesResource = "GameUI/Styles/ColorFieldStyleSheet";
+		private const string ussInputContainer = "color-field-input-container";
+		private const string ussFieldName = "color-field";
+		private const string ussFieldLabel = "color-field__label";
+		private const string ussFieldResetButton = "color-field__reset-button";
 
 		// ------------------------------------------------------------------------------------------------------------
 
+		private VisualElement _colorFieldInputContainer;
+
 		public ColorField()
-			: this(null, null, new ColorFieldInput(null))
+			: this(null, null)
 		{ }
 
 		public ColorField(string label, string resetLabel = null)
-			: this(label, resetLabel, new ColorFieldInput(resetLabel))
+			: this(label, resetLabel, new VisualElement())
 		{ }
 
-		private ColorField(string label, string resetLabel, ColorFieldInput colorFieldInput)
-			: base(label, colorFieldInput)
+		private ColorField(string label, string resetLabel, VisualElement colorFieldInputInputContainer) : base(label, colorFieldInputInputContainer)
 		{
-			this._colorFieldInput = colorFieldInput;
-
-			styleSheets.Add(Resources.Load<StyleSheet>(StylesResource));
-			AddToClassList(USSFieldName);
+			_colorFieldInputContainer = colorFieldInputInputContainer;
+			_colorFieldInputContainer.AddToClassList(ussInputContainer);
 			
-			labelElement.AddToClassList(USSFieldLabel);
+			this.colorFieldInput = new ColorFieldInput();
+			this.resetLabel = resetLabel;
+			_colorFieldInputContainer.Add(colorFieldInput);
+
+			styleSheets.Add(Resources.Load<StyleSheet>(stylesResource));
+			AddToClassList(ussFieldName);
+
+			labelElement.AddToClassList(ussFieldLabel);
 
 			colorFieldInput.RegisterCallback<ClickEvent>(OnClickEvent);
+
+			UpdateResetButton();
 
 			RegisterCallback<GeometryChangedEvent>(OnGeometryChangedEvent);
 		}
@@ -65,88 +72,86 @@ namespace Game.UI
 		public override void SetValueWithoutNotify(Color newValue)
 		{
 			base.SetValueWithoutNotify(newValue);
-			_colorFieldInput.SetColor(newValue);
+			colorFieldInput.SetColor(newValue);
 		}
 
-		
+		private void UpdateResetButton()
+		{
+			if (resetLabel == null)
+			{
+				if (resetButton != null)
+				{
+					Remove(resetButton);
+					resetButton = null;
+				}
+			}
+			else
+			{
+				if (resetButton == null)
+				{
+					resetButton = new Button();
+					resetButton.AddToClassList(ussFieldResetButton);
+					resetButton.clicked += OnResetButton;
+					_colorFieldInputContainer.Add(resetButton);
+				}
+				resetButton.text = resetLabel;
+			}
+		}
 
 		private void OnGeometryChangedEvent(GeometryChangedEvent ev)
 		{
 			UnregisterCallback<GeometryChangedEvent>(OnGeometryChangedEvent);
-			_colorFieldInput.SetColor(value);
+			colorFieldInput.SetColor(value);
 		}
 
 		private void OnClickEvent(ClickEvent ev)
 		{
 			ColorPopup?.Show(value, c => value = c);
 		}
-		
+
 		public void OnResetButton()
 		{
-			_colorFieldInput.OnResetButton();
+			ResetButtonPressed?.Invoke();
 		}
-
-		public void RegisterOnResetButton(Action a) => _colorFieldInput.ResetButtonPressed += a;
-		
 
 		// ============================================================================================================
 
 		private class ColorFieldInput : VisualElement
 		{
-			public event Action ResetButtonPressed;
-
 			public VisualElement rgbField;
+			public VisualElement alphaField;
+			public string resetButtonText = null;
 			public Button resetButton;
-			public string resetLabel;
+			
+			private const string ussFieldInput = "color-field__input";
+			private const string ussFieldInputRGB = "color-field__input-rgb";
+			private const string ussFieldInputAlpha = "color-field__input-alpha";
+			private const string ussFieldInputAlphaContainer = "color-field__input-alpha-container";
 
-			private const string USSFieldInput = "color-field__input";
-			private const string USSFieldInputRGB = "color-field__input-rgb";
-
-			public ColorFieldInput(string resetLabel)
+			public ColorFieldInput()
 			{
-				this.resetLabel = resetLabel;
-				
-				AddToClassList(USSFieldInput);
+				AddToClassList(ussFieldInput);
 
 				rgbField = new VisualElement();
-				rgbField.AddToClassList(USSFieldInputRGB);
+				rgbField.AddToClassList(ussFieldInputRGB);
 				Add(rgbField);
-				UpdateResetButton();
+
+				var alphaFieldContainer = new VisualElement();
+				alphaFieldContainer.AddToClassList(ussFieldInputAlphaContainer);
+				// Add(alphaFieldContainer);
+
+				alphaField = new VisualElement();
+				alphaField.AddToClassList(ussFieldInputAlpha);
+				alphaFieldContainer.Add(alphaField);
 			}
 
 			public void SetColor(Color color)
 			{
 				rgbField.style.backgroundColor = new Color(color.r, color.g, color.b, 1f);
-			}
-			
-			public void UpdateResetButton()
-			{
-				if (resetLabel == null)
-				{
-					if (resetButton != null)
-					{
-						Remove(resetButton);
-						resetButton = null;
-					}
-				}
-				else
-				{
-					if (resetButton == null)
-					{
-						resetButton = new Button();
-						resetButton.AddToClassList(USSFieldResetButton);
-						resetButton.clicked += OnResetButton;
-						Add(resetButton);
-					}
-					resetButton.text = resetLabel;
-				}
-			}
-			
-			public void OnResetButton()
-			{
-				ResetButtonPressed?.Invoke();
+				alphaField.style.width = alphaField.parent.resolvedStyle.width * color.a;
 			}
 		}
 
+		// ============================================================================================================
 	}
 }
