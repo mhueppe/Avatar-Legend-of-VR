@@ -10,9 +10,18 @@ scopes = {
 	"last_search.83F126EB" = "experi"
 	"OpenInspectorPreview.83F126EB" = "0"
 	"currentGroup.83F126EB" = "all"
+<<<<<<< HEAD
 	"last_search.785D90A9" = "contr"
 	"OpenInspectorPreview.785D90A9" = "0"
 	"currentGroup.785D90A9" = "all"
+=======
+	"last_search.785D90A9" = "liste"
+	"OpenInspectorPreview.785D90A9" = "0"
+	"currentGroup.785D90A9" = "all"
+	"last_search.7F95D817" = ""
+	"OpenInspectorPreview.7F95D817" = "0"
+	"currentGroup.7F95D817" = "scene"
+>>>>>>> 3ea75a8fda5a494638b0db80cf6ea6233ad92ff6
 }
 providers = {
 	adb = {
@@ -62,6 +71,10 @@ providers = {
 	}
 }
 recentSearches = [
+<<<<<<< HEAD
+=======
+	"au"
+>>>>>>> 3ea75a8fda5a494638b0db80cf6ea6233ad92ff6
 ]
 searchItemFavorites = [
 ]
