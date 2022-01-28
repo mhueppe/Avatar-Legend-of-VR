@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class Dogs : MonoBehaviour
 {
     // Start is called before the first frame update
     public Team redTeam; 
