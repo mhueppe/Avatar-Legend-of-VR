@@ -61,8 +61,8 @@ public class Questionaire : MonoBehaviour
         _age = root.Q<TextField>("age");
         _age.RegisterValueChangedCallback(OnlyAllowInts);
 
-        _sex = root.Q<DropdownField>("sex");
-        _sex.choices = GetChoicesFromEnum<Sex>();
+        // _sex = root.Q<DropdownField>("sex");
+        // _sex.choices = GetChoicesFromEnum<Sex>();
 
         _skinColorPickButtons = root.Query<Button>(className:"color-pick-button").ToList();
         _skinColorPickButtons.ForEach(button => button.RegisterCallback(new EventCallback<ClickEvent>(SkinColorPicked)));
@@ -77,12 +77,12 @@ public class Questionaire : MonoBehaviour
         
         _hairLength = root.Q<DropdownField>("hair-length");
         _hairLength.choices = GetChoicesFromEnum<HairLength>();
-
-        _hairType = root.Q<DropdownField>("hair-type");
-        _hairType.choices = GetChoicesFromEnum<HairType>();
-        
-        _bodyType = root.Q<DropdownField>("body-type");
-        _bodyType.choices = GetChoicesFromEnum<BodyType>();
+        //
+        // _hairType = root.Q<DropdownField>("hair-type");
+        // _hairType.choices = GetChoicesFromEnum<HairType>();
+        //
+        // _bodyType = root.Q<DropdownField>("body-type");
+        // _bodyType.choices = GetChoicesFromEnum<BodyType>();
 
         _eyeColor = root.Q<Game.UI.ColorField>("eye-color");
         _eyeColor.ColorPopup = colorPopup;
@@ -100,17 +100,17 @@ public class Questionaire : MonoBehaviour
         _likesGlasses = root.Q<RadioButtonGroup>("likes-glasses");
         _likesGlasses.choices = GetChoicesFromEnum<Opinion>();
         
-        _likesBraces = root.Q<RadioButtonGroup>("likes-braces");
-        _likesBraces.choices = GetChoicesFromEnum<Opinion>();
-        
-        _likesPiercings = root.Q<RadioButtonGroup>("likes-piercings");
-        _likesPiercings.choices = GetChoicesFromEnum<Opinion>();
-        
-        _likesTattoos = root.Q<RadioButtonGroup>("likes-tattoos");
-        _likesTattoos.choices = GetChoicesFromEnum<Opinion>();
-        
-        _likesJewelry = root.Q<RadioButtonGroup>("likes-jewelry");
-        _likesJewelry.choices = GetChoicesFromEnum<Opinion>();
+        // _likesBraces = root.Q<RadioButtonGroup>("likes-braces");
+        // _likesBraces.choices = GetChoicesFromEnum<Opinion>();
+        //
+        // _likesPiercings = root.Q<RadioButtonGroup>("likes-piercings");
+        // _likesPiercings.choices = GetChoicesFromEnum<Opinion>();
+        //
+        // _likesTattoos = root.Q<RadioButtonGroup>("likes-tattoos");
+        // _likesTattoos.choices = GetChoicesFromEnum<Opinion>();
+        //
+        // _likesJewelry = root.Q<RadioButtonGroup>("likes-jewelry");
+        // _likesJewelry.choices = GetChoicesFromEnum<Opinion>();
 
         #endregion
 
@@ -128,20 +128,20 @@ public class Questionaire : MonoBehaviour
             var passMeSomewhere = new ParticipantPreferences
             {
                 Age = Convert.ToInt32(_age.value),
-                Sex = GetEnumResponse<Sex>(_sex.index),
+                // Sex = GetEnumResponse<Sex>(_sex.index),
                 SkinColor = _skinColorPickButtons[_lastSelectedSkinColorIndex].resolvedStyle.backgroundColor,
                 HairColor = _hairColor.value,
                 HairLength = GetEnumResponse<HairLength>(_hairLength.index),
-                HairType = GetEnumResponse<HairType>(_hairType.index),
-                BodyType = GetEnumResponse<BodyType>(_bodyType.index),
+                // HairType = GetEnumResponse<HairType>(_hairType.index),
+                // BodyType = GetEnumResponse<BodyType>(_bodyType.index),
                 EyeColor = _eyeColor.value,
                 ClothingStyle = GetEnumResponse<ClothingStyle>(_clothingStyle.index),
                 FavouriteColor = _favouriteColor.value,
                 LikesGlasses = GetEnumResponse<Opinion>(_likesGlasses.value),
-                LikesBraces = GetEnumResponse<Opinion>(_likesBraces.value),
-                LikesPiercings = GetEnumResponse<Opinion>(_likesPiercings.value),
-                LikesTattoos = GetEnumResponse<Opinion>(_likesTattoos.value),
-                LikesJewelry = GetEnumResponse<Opinion>(_likesJewelry.value)
+                // LikesBraces = GetEnumResponse<Opinion>(_likesBraces.value),
+                // LikesPiercings = GetEnumResponse<Opinion>(_likesPiercings.value),
+                // LikesTattoos = GetEnumResponse<Opinion>(_likesTattoos.value),
+                // LikesJewelry = GetEnumResponse<Opinion>(_likesJewelry.value)
             };
         }
         

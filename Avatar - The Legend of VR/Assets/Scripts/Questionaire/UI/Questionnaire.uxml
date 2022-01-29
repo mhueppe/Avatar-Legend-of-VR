@@ -10,9 +10,8 @@
                 </ui:VisualElement>
                 <ui:VisualElement name="body" style="flex-grow: 1; padding-top: 20px;">
                     <ui:TextField picking-mode="Ignore" label="1. How old are you?" max-length="3" name="age" class="question-margin" style="justify-content: space-between;" />
-                    <ui:DropdownField label="2. Please indicate your sex" index="-1" choices="System.Collections.Generic.List`1[System.String]" name="sex" class="question-margin" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;" />
                     <ui:VisualElement name="skin-color" class="question-margin" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;">
-                        <ui:Label text="3. Please indicate your preferred color of skin" display-tooltip-when-elided="true" />
+                        <ui:Label text="3. Please indicate your  color of skin" display-tooltip-when-elided="true" />
                         <ui:VisualElement name="colors" style="flex-direction: column; margin-left: 16px;">
                             <ui:VisualElement name="row-1" style="flex-direction: row;">
                                 <ui:Button class="color-pick-button" style="background-color: rgb(65, 31, 29);" />
@@ -59,16 +58,10 @@
                     </ui:VisualElement>
                     <Game.UI.ColorField name="hair-color" label="4. What hair color do you like particularly?" reset-label="Reset" class="question-margin" />
                     <ui:DropdownField label="5. What hair length do you like most?" index="-1" name="hair-length" class="question-margin" />
-                    <ui:DropdownField label="6. What hairy type do you prefer?" index="-1" name="hair-type" class="question-margin" />
-                    <ui:DropdownField label="7. What body type do you prefer?" index="-1" name="body-type" class="question-margin" />
                     <Game.UI.ColorField name="eye-color" label="8. What eye color do you find appealing?" reset-label="Reset" class="question-margin" />
                     <ui:DropdownField label="9. What clothing style do you visually prefer?" index="-1" name="clothing-style" class="question-margin" />
                     <Game.UI.ColorField name="favourite-color" label="10. What&apos;s your favourite color?" reset-label="Reset" class="question-margin" />
                     <ui:RadioButtonGroup label="11. Do you like glasses?" value="-1" name="likes-glasses" class="question-margin horizontal-flex" />
-                    <ui:RadioButtonGroup label="12. Do you like braces?" value="-1" name="likes-braces" class="question-margin horizontal-flex" />
-                    <ui:RadioButtonGroup label="13. Do you like piercings?" value="-1" name="likes-piercings" class="question-margin horizontal-flex" />
-                    <ui:RadioButtonGroup label="14. Do you like tattoos?" value="-1" name="likes-tattoos" class="question-margin horizontal-flex" />
-                    <ui:RadioButtonGroup label="15. Do you like jewelry?" value="-1" name="likes-jewelry" class="question-margin horizontal-flex" />
                 </ui:VisualElement>
                 <ui:VisualElement name="bottom" style="margin-top: 20px; flex-direction: row-reverse;">
                     <ui:Button text="Continue" name="continue" focusable="false" style="width: 8%; min-width: 70px;" />
