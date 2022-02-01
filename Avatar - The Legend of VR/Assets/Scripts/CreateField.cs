@@ -32,7 +32,6 @@ public class CreateField : MonoBehaviour
             Quaternion[] rotations = {Quaternion.Euler(0, 0, 0)};
             int rotIndex = 0;
             int tempSideLength = 16;
-            bool newSideLength = false; 
     
             for(int i = start; i < start+nFields ; i ++){
                 GameObject field = (GameObject) PrefabUtility.InstantiatePrefab(fieldPrefab);
