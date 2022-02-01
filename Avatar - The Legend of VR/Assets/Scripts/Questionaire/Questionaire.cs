@@ -17,20 +17,22 @@ public class Questionaire : MonoBehaviour
     #region Question Fields
 
     private TextField _age;
-    private DropdownField _sex;
 
     private List<Button> _skinColorPickButtons;
     private int _lastSelectedSkinColorIndex = -1;
+    
+    private List<Button> _hairColorPickButtons;
+    private int _lastSelectedHairColorIndex = -1;
+    
+    private List<Button> _eyeColorPickButtons;
+    private int _lastSelectedEyeColorIndex = -1;
+    
     [SerializeField] private Color unselectedColorBorderColor = new(27,27,27);
     [SerializeField] private Color selectedColorBorderColor = Color.green;
 
     private ColorField _hairColor;
     
     private DropdownField _hairLength;
-
-    private DropdownField _hairType;
-
-    private DropdownField _bodyType;
 
     private ColorField _eyeColor;
 
@@ -40,13 +42,8 @@ public class Questionaire : MonoBehaviour
 
     private RadioButtonGroup _likesGlasses;
     
-    private RadioButtonGroup _likesBraces;
+    private RadioButtonGroup _likesHats;
     
-    private RadioButtonGroup _likesPiercings;
-    
-    private RadioButtonGroup _likesTattoos;
-    
-    private RadioButtonGroup _likesJewelry;
 
     #endregion
     
@@ -60,35 +57,22 @@ public class Questionaire : MonoBehaviour
         
         _age = root.Q<TextField>("age");
         _age.RegisterValueChangedCallback(OnlyAllowInts);
-
-        // _sex = root.Q<DropdownField>("sex");
-        // _sex.choices = GetChoicesFromEnum<Sex>();
-
-        _skinColorPickButtons = root.Query<Button>(className:"color-pick-button").ToList();
-        _skinColorPickButtons.ForEach(button => button.RegisterCallback(new EventCallback<ClickEvent>(SkinColorPicked)));
+        
+        _skinColorPickButtons = root.Query<Button>(className:"skin-color-button").ToList();
+        _skinColorPickButtons.ForEach(button => button.RegisterCallback(new EventCallback<ClickEvent>(evt => SkinColorPicked(evt, ref _skinColorPickButtons, ref _lastSelectedSkinColorIndex))));
+        
+        _hairColorPickButtons = root.Query<Button>(className:"eye-color-button").ToList();
+        _hairColorPickButtons.ForEach(button => button.RegisterCallback(new EventCallback<ClickEvent>(evt => SkinColorPicked(evt, ref _hairColorPickButtons, ref _lastSelectedHairColorIndex))));
+        
+        _eyeColorPickButtons = root.Query<Button>(className:"hair-color-button").ToList();
+        _eyeColorPickButtons.ForEach(button => button.RegisterCallback(new EventCallback<ClickEvent>(evt => SkinColorPicked(evt, ref _eyeColorPickButtons, ref _lastSelectedEyeColorIndex))));
         
         // make color popup that can be reused for all color properties.
         var colorPopup = root.Q<ColorPopup>("color-popup");
-
-        _hairColor = root.Q<Game.UI.ColorField>("hair-color");
-        _hairColor.ColorPopup = colorPopup;
-        _hairColor.ResetButtonPressed += () => _hairColor.value = new Color(80, 60, 50);
-        _hairColor.OnResetButton();
         
         _hairLength = root.Q<DropdownField>("hair-length");
         _hairLength.choices = GetChoicesFromEnum<HairLength>();
-        //
-        // _hairType = root.Q<DropdownField>("hair-type");
-        // _hairType.choices = GetChoicesFromEnum<HairType>();
-        //
-        // _bodyType = root.Q<DropdownField>("body-type");
-        // _bodyType.choices = GetChoicesFromEnum<BodyType>();
 
-        _eyeColor = root.Q<Game.UI.ColorField>("eye-color");
-        _eyeColor.ColorPopup = colorPopup;
-        _eyeColor.ResetButtonPressed += () => _eyeColor.value = new Color(0.2311321f, 0.2311321f, 1f);
-        _eyeColor.OnResetButton();
-        
         _clothingStyle = root.Q<DropdownField>("clothing-style");
         _clothingStyle.choices = GetChoicesFromEnum<ClothingStyle>();
 
@@ -100,18 +84,9 @@ public class Questionaire : MonoBehaviour
         _likesGlasses = root.Q<RadioButtonGroup>("likes-glasses");
         _likesGlasses.choices = GetChoicesFromEnum<Opinion>();
         
-        // _likesBraces = root.Q<RadioButtonGroup>("likes-braces");
-        // _likesBraces.choices = GetChoicesFromEnum<Opinion>();
-        //
-        // _likesPiercings = root.Q<RadioButtonGroup>("likes-piercings");
-        // _likesPiercings.choices = GetChoicesFromEnum<Opinion>();
-        //
-        // _likesTattoos = root.Q<RadioButtonGroup>("likes-tattoos");
-        // _likesTattoos.choices = GetChoicesFromEnum<Opinion>();
-        //
-        // _likesJewelry = root.Q<RadioButtonGroup>("likes-jewelry");
-        // _likesJewelry.choices = GetChoicesFromEnum<Opinion>();
-
+        _likesHats = root.Q<RadioButtonGroup>("likes-hats");
+        _likesHats.choices = GetChoicesFromEnum<Opinion>();
+        
         #endregion
 
         _continueButton = root.Q<Button>("continue");
@@ -128,20 +103,13 @@ public class Questionaire : MonoBehaviour
             var passMeSomewhere = new ParticipantPreferences
             {
                 Age = Convert.ToInt32(_age.value),
-                // Sex = GetEnumResponse<Sex>(_sex.index),
                 SkinColor = _skinColorPickButtons[_lastSelectedSkinColorIndex].resolvedStyle.backgroundColor,
-                HairColor = _hairColor.value,
+                HairColor = _hairColorPickButtons[_lastSelectedHairColorIndex].resolvedStyle.backgroundColor,
                 HairLength = GetEnumResponse<HairLength>(_hairLength.index),
-                // HairType = GetEnumResponse<HairType>(_hairType.index),
-                // BodyType = GetEnumResponse<BodyType>(_bodyType.index),
-                EyeColor = _eyeColor.value,
+                EyeColor = _eyeColorPickButtons[_lastSelectedEyeColorIndex].resolvedStyle.backgroundColor,
                 ClothingStyle = GetEnumResponse<ClothingStyle>(_clothingStyle.index),
                 FavouriteColor = _favouriteColor.value,
-                LikesGlasses = GetEnumResponse<Opinion>(_likesGlasses.value),
-                // LikesBraces = GetEnumResponse<Opinion>(_likesBraces.value),
-                // LikesPiercings = GetEnumResponse<Opinion>(_likesPiercings.value),
-                // LikesTattoos = GetEnumResponse<Opinion>(_likesTattoos.value),
-                // LikesJewelry = GetEnumResponse<Opinion>(_likesJewelry.value)
+                LikesGlasses = GetEnumResponse<Opinion>(_likesGlasses.value)
             };
         }
         
@@ -150,20 +118,13 @@ public class Questionaire : MonoBehaviour
     private bool EverythingAnswered()
     {
         return WasChanged(_age) &&
-               WasChanged(_sex) &&
                _lastSelectedSkinColorIndex != -1 &&
                // don't care for hair color
                WasChanged(_hairLength) &&
-               WasChanged(_hairType) &&
-               WasChanged(_bodyType) &&
                WasChanged(_eyeColor) &&
                WasChanged(_clothingStyle) &&
                // don't care for favourite color
-               WasChanged(_likesGlasses) &&
-               WasChanged(_likesBraces) &&
-               WasChanged(_likesPiercings) &&
-               WasChanged(_likesTattoos) &&
-               WasChanged(_likesJewelry);
+               WasChanged(_likesGlasses);
 
     }
 
@@ -176,19 +137,19 @@ public class Questionaire : MonoBehaviour
     
     #region Event Functions
     
-    private void SkinColorPicked(ClickEvent clickEvent)
+    private void SkinColorPicked(ClickEvent clickEvent, ref List<Button> choices, ref int lastIndex)
     {
         // if not left mouse button return.
         if (clickEvent.button != 0) return;
         var button = clickEvent.target as Button;
         
         // Reset all buttons border color.
-        _skinColorPickButtons.ForEach(b => SetBorderColor(b, unselectedColorBorderColor));
+        choices.ForEach(b => SetBorderColor(b, unselectedColorBorderColor));
         
         // Color the border of the selected one.
         SetBorderColor(button, selectedColorBorderColor);
         
-        _lastSelectedSkinColorIndex = _skinColorPickButtons.FindIndex(b => b.style.borderTopColor == selectedColorBorderColor);
+        lastIndex = choices.FindIndex(b => b.style.borderTopColor == selectedColorBorderColor);
     }
     
     private void OnlyAllowInts(ChangeEvent<string> evt)

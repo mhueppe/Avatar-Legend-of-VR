@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
-    public Vector3 position;
+    public Vector3 position=>transform.position;
+    public Quaternion quaternion=>transform.rotation;
     
     public Field prevField; 
     public Field nextField; 
@@ -14,7 +15,6 @@ public class Field : MonoBehaviour
     public Material defaultMaterial;
     
     void Start(){
-         position = transform.position;
          defaultMaterial = this.GetComponent<Renderer>().material;
      }
 }

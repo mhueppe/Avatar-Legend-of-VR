@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Scripts/Questionaire/UI/questionaire.uss?fileID=7433441132597879392&amp;guid=a62e6e9507ec7304996d74e326f72787&amp;type=3#questionaire" />
     <ui:VisualElement name="Background" style="-unity-background-image-tint-color: rgb(166, 166, 166); background-color: rgb(56, 56, 56);">
-        <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="Questionaire">
+        <ui:ScrollView horizontal-scroller-visibility="Hidden" vertical-scroller-visibility="Hidden" name="Questionaire" style="height: 921px;">
             <ui:VisualElement name="screen" style="flex-grow: 1; margin-left: 20%; margin-right: 20%; margin-top: 3%; margin-bottom: 3%;">
                 <ui:VisualElement name="headings">
                     <ui:Label text="Questionnaire" name="header" style="-unity-font-style: bold; font-size: 100%;" />
@@ -14,54 +14,106 @@
                         <ui:Label text="3. Please indicate your  color of skin" display-tooltip-when-elided="true" />
                         <ui:VisualElement name="colors" style="flex-direction: column; margin-left: 16px;">
                             <ui:VisualElement name="row-1" style="flex-direction: row;">
-                                <ui:Button class="color-pick-button" style="background-color: rgb(65, 31, 29);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(43, 0, 1);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(117, 68, 61);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(196, 133, 99);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(191, 121, 90);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(225, 147, 125);" />
-                                <ui:Button class="color-pick-button" style="background-image: url(&apos;project://database/Assets/x.png?fileID=2800000&amp;guid=bb82ecb85714a4949bc3309933dbfc79&amp;type=3#x&apos;); background-color: rgba(56, 56, 56, 0);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(65, 31, 29);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(43, 0, 1);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(117, 68, 61);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(196, 133, 99);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(191, 121, 90);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(225, 147, 125);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-image: url(&apos;project://database/Assets/x.png?fileID=2800000&amp;guid=bb82ecb85714a4949bc3309933dbfc79&amp;type=3#x&apos;); background-color: rgba(56, 56, 56, 0);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="row-2" style="flex-direction: row;">
-                                <ui:Button class="color-pick-button" style="background-color: rgb(88, 48, 57);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(62, 27, 18);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(190, 131, 105);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(213, 150, 121);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(201, 136, 103);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(244, 188, 170);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(88, 48, 57);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(62, 27, 18);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(190, 131, 105);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(213, 150, 121);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(201, 136, 103);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(244, 188, 170);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="row-3" style="flex-direction: row;">
-                                <ui:Button class="color-pick-button" style="background-color: rgb(112, 68, 69);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(77, 36, 11);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(236, 171, 138);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(230, 170, 147);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(219, 149, 118);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(254, 219, 199);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(112, 68, 69);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(77, 36, 11);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(236, 171, 138);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(230, 170, 147);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(219, 149, 118);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(254, 219, 199);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="row-4" style="flex-direction: row;">
-                                <ui:Button class="color-pick-button" style="background-color: rgb(184, 111, 111);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(92, 46, 23);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(188, 114, 107);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(230, 192, 173);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(250, 194, 163);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(252, 231, 220);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(184, 111, 111);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(92, 46, 23);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(188, 114, 107);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(230, 192, 173);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(250, 194, 163);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(252, 231, 220);" />
                             </ui:VisualElement>
                             <ui:VisualElement name="row-5" style="flex-direction: row;">
-                                <ui:Button class="color-pick-button" style="background-color: rgb(240, 197, 184);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(104, 48, 33);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(222, 149, 133);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(240, 198, 189);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(248, 203, 171);" />
-                                <ui:Button class="color-pick-button" style="background-color: rgb(252, 222, 207);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(240, 197, 184);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(104, 48, 33);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(222, 149, 133);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(240, 198, 189);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(248, 203, 171);" />
+                                <ui:Button class="color-pick-button skin-color-button" style="background-color: rgb(252, 222, 207);" />
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <Game.UI.ColorField name="hair-color" label="4. What hair color do you like particularly?" reset-label="Reset" class="question-margin" />
+                    <ui:VisualElement name="eye-color" class="question-margin" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;">
+                        <ui:Label text="3. What is your favorite eye color?" display-tooltip-when-elided="true" />
+                        <ui:VisualElement name="colors" style="flex-direction: column; margin-left: 16px;">
+                            <ui:VisualElement name="row-1" class="eye-color-button" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(160, 180, 199);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(92, 123, 162);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(77, 107, 136);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(63, 89, 93);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(128, 138, 114);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(112, 117, 81);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-image: url(&apos;project://database/Assets/x.png?fileID=2800000&amp;guid=bb82ecb85714a4949bc3309933dbfc79&amp;type=3#x&apos;); background-color: rgba(56, 56, 56, 0);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="row-2" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(168, 132, 89);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(130, 109, 81);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(67, 52, 52);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(53, 36, 34);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(145, 151, 146);" />
+                                <ui:Button class="color-pick-button eye-color-button" style="background-color: rgb(96, 101, 110);" />
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="hair-color" class="question-margin" style="margin-left: 4px; margin-right: 4px; margin-top: 2px; margin-bottom: 2px;">
+                        <ui:Label text="3. What is your favorite hair color?" display-tooltip-when-elided="true" />
+                        <ui:VisualElement name="colors" style="flex-direction: column; margin-left: 16px;">
+                            <ui:VisualElement name="row-1" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(250, 228, 169);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(220, 192, 157);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(213, 190, 163);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(130, 101, 80);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(132, 100, 77);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(88, 67, 59);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-image: url(&apos;project://database/Assets/x.png?fileID=2800000&amp;guid=bb82ecb85714a4949bc3309933dbfc79&amp;type=3#x&apos;); background-color: rgba(56, 56, 56, 0);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="row-2" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(68, 48, 42);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(48,28, 22);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(151, 90, 63);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(103, 52, 53);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(69, 41, 40);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(66, 34, 42);" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="row-3" style="flex-direction: row;">
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(40, 43, 49);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(20, 20, 16);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(177, 173, 169);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(206, 12, 133);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(40, 71, 231);" />
+                                <ui:Button class="color-pick-button hair-color-button" style="background-color: rgb(90, 104, 37);" />
+
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
                     <ui:DropdownField label="5. What hair length do you like most?" index="-1" name="hair-length" class="question-margin" />
-                    <Game.UI.ColorField name="eye-color" label="8. What eye color do you find appealing?" reset-label="Reset" class="question-margin" />
                     <ui:DropdownField label="9. What clothing style do you visually prefer?" index="-1" name="clothing-style" class="question-margin" />
                     <Game.UI.ColorField name="favourite-color" label="10. What&apos;s your favourite color?" reset-label="Reset" class="question-margin" />
                     <ui:RadioButtonGroup label="11. Do you like glasses?" value="-1" name="likes-glasses" class="question-margin horizontal-flex" />
+                    <ui:RadioButtonGroup label="12. Do you like hats?" value="-1" name="likes-hats" class="question-margin horizontal-flex" />
                 </ui:VisualElement>
                 <ui:VisualElement name="bottom" style="margin-top: 20px; flex-direction: row-reverse;">
                     <ui:Button text="Continue" name="continue" focusable="false" style="width: 8%; min-width: 70px;" />
