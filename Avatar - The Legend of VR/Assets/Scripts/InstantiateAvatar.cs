@@ -100,6 +100,14 @@ public class InstantiateAvatar : MonoBehaviour
         new(96f/255f,101f/255f,110f/255f)};
 
     // Start is called before the first frame update
+    private void SetBasedOnPreferenceLevel(bool randomClothingStyle, bool randomClothingColor, bool randomHairLength, bool randomHairColor, bool randomHat, bool randomSkinColor, bool randomEyeColor, bool randomGlasses)
+    {
+        SetClothing(randomClothingStyle, randomClothingColor);
+        SetHair(randomHairLength, randomHairColor, SetHat(randomHat));
+        SetSkinColor(randomSkinColor);
+        SetEyeColor(randomEyeColor);
+        SetGlasses(randomGlasses);
+    }
     void Start()
     {   
         // make the avatar object and instantiate it at the position of the field
@@ -108,51 +116,26 @@ public class InstantiateAvatar : MonoBehaviour
         switch (questionnaireMatch)
         {
             case 0:
-                SetClothing(true, true);
-                SetHair(true, true, SetHat(Random.value > 0.5));
-                SetSkinColor(true);
-                SetEyeColor(true);
-                SetGlasses(Random.value > 0.5);
+                SetBasedOnPreferenceLevel(true, true, true, true, true, true, true, true);
                 break;
                 
             case 20:
-                SetClothing(true, true);
-                SetHair(true, false, SetHat(false));
-                SetSkinColor(true);
-                SetEyeColor(true);
-                SetGlasses(false);
+                SetBasedOnPreferenceLevel(true, true, true, false, false, true, true, Random.value > 0.5);
                 break;
             
             case 40:
-                SetClothing(true, false);
-                SetHair(true, false, SetHat(Random.value > 0.5));
-                SetSkinColor(true);
-                SetEyeColor(true);
-                SetGlasses(false);
+                SetBasedOnPreferenceLevel(true, false, true, false, Random.value > 0.5, true, true, false);
                 break;
-                
             case 60:
-                SetClothing(true, false);
-                SetHair(true, false, SetHat(Random.value > 0.5));
-                SetSkinColor(true);
-                SetEyeColor(true);
-                SetGlasses(false);
+                SetBasedOnPreferenceLevel(true, false, true, false, Random.value > 0.5, true, false, false);
                 break;
             
             case 80:
-                SetClothing(false, false);
-                SetHair(false, true, SetHat(true));
-                SetSkinColor(true);
-                SetEyeColor(false);
-                SetGlasses(true);
+                SetBasedOnPreferenceLevel(false, false, false, true, Random.value > 0.5, true, false, Random.value > 0.5);
                 break;
                 
             case 100:
-                SetClothing(false, false);
-                SetHair(false, false, SetHat(true));
-                SetSkinColor(false);
-                SetGlasses(true);
-                SetEyeColor(false);
+                SetBasedOnPreferenceLevel(false, false, false, false, false, false, false, false);
                 break;
         }
 
@@ -203,7 +186,6 @@ public class InstantiateAvatar : MonoBehaviour
             {
                 case Opinion.Yes:
                     if (setBasedOnPreference){MakeActive("glasses");}
-                    Debug.Log("Made glasses on");
                     break;
                 case Opinion.Neutral:
                 {
@@ -285,7 +267,6 @@ public class InstantiateAvatar : MonoBehaviour
     {
         // set skin color based on preferences
         Color skin = RandomFromList(_skinColors);
-        Debug.Log(skin.ToString());
         var skinColor = randomSkinColor ? skin : ParticipantPreferences.SkinColor;
         SetColor(skinColor, FindChild("avatar_mesh"));
     }
