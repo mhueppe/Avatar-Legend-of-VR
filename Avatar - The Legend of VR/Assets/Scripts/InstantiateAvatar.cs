@@ -112,6 +112,7 @@ public class InstantiateAvatar : MonoBehaviour
     {   
         // make the avatar object and instantiate it at the position of the field
         _avatar = Instantiate(avatarPrefab, avatarField.position, avatarField.quaternion).GameObject();
+        _avatar.GetComponent<global::Avatar>().QuestionnaireMatch = questionnaireMatch;
 
         switch (questionnaireMatch)
         {
