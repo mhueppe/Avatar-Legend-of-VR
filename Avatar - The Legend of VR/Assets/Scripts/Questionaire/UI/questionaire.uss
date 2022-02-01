@@ -3,7 +3,7 @@
     border-width: 2px;
     height: 80%;
     width: 5%;
-    border-color: #1B1B1B;
+    border-color: rgb(27, 27, 27);
 }
 
 .horizontal-flex {
@@ -21,8 +21,6 @@ Button {
     background-color: rgb(38, 34, 33);
 }
 
-
-/* Radio Buttons */
 .unity-radio-button {
     margin-left: 24px;
 }
@@ -32,26 +30,34 @@ Button {
 }
 
 .unity-radio-button > .unity-radio-button__input:hover > .unity-radio-button__checkmark-background {
-    border-color: #C9C9C9;
+    border-color: rgb(201, 201, 201);
 }
 
 .unity-radio-button > .unity-radio-button__input:focus > .unity-radio-button__checkmark-background {
-    border-color: #5F5F5F;
+    border-color: rgb(95, 95, 95);
 }
 
 .unity-radio-button__checkmark-background {
-    background-color: #2A2A2A;
+    background-color: rgb(42, 42, 42);
 }
 
 #unity-checkmark {
-    background-color: #C9C9C9;
+    background-color: rgb(201, 201, 201);
 }
 
-/* Text input and base fields */
-
-.unity-label, .unity-text-element, #unity-text-input {
+.unity-label {
     font-size: 100%;
-    color: #C9C9C9;
+    color: rgb(201, 201, 201);
+}
+
+.unity-text-element {
+    font-size: 100%;
+    color: rgb(201, 201, 201);
+}
+
+#unity-text-input {
+    font-size: 100%;
+    color: rgb(201, 201, 201);
 }
 
 #unity-text-input {
@@ -59,26 +65,45 @@ Button {
     flex-grow: 1;
 }
 
-.unity-base-text-field__input, .unity-base-popup-field__input{
+.unity-base-text-field__input {
     padding: 4px;
     padding-left: 8px;
-    background-color: #515151;
+    background-color: rgb(81, 81, 81);
 }
 
-.unity-base-popup-field__arrow, .unity-base-dropdown__checkmark {
-    -unity-background-image-tint-color: #C4C4C4;
+.unity-base-popup-field__input {
+    padding: 4px;
+    padding-left: 8px;
+    background-color: rgb(81, 81, 81);
 }
+
+.unity-base-popup-field__arrow {
+    -unity-background-image-tint-color: rgb(196, 196, 196);
+}
+
+.unity-base-dropdown__checkmark {
+    -unity-background-image-tint-color: rgb(196, 196, 196);
+}
+
 .unity-base-dropdown__container-inner {
-    background-color: #515151;
+    background-color: rgb(81, 81, 81);
 }
-
 
 .unity-base-field {
     justify-content: space-between;
 }
 
 .unity-base-field__input {
-    border-color: #1B1B1B;
+    border-color: rgb(27, 27, 27);
     max-width: 50%;
     margin: 0;
+}
+
+.skin-color-button {
+}
+
+.eye-color-button {
+}
+
+.hair-color-button {
 }
