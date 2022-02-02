@@ -12,8 +12,6 @@ public class Field : MonoBehaviour
     public Field prevField;
     public Field nextField;
 
-    public Player occupiedBy = null;
-
     public Material defaultMaterial;
 
     void Start(){

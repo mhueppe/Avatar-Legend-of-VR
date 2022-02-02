@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
-using Avatar = VRAvatar.Avatar;
+using VRAvatar;
 
 public class RefillHandCards : IState
 {
     private readonly TrialInfo _currentTrial;
-    private readonly Avatar _avatar;
+    private readonly Player _avatar;
     private readonly float every;
     
     
@@ -16,7 +16,7 @@ public class RefillHandCards : IState
     public bool AreRefilled => _amount <= 0;
 
 
-    public RefillHandCards(CardStaple staple, Avatar avatar, int amount, float every)
+    public RefillHandCards(CardStaple staple, Player avatar, int amount, float every)
     {
         _staple = staple;
         _avatar = avatar;
@@ -25,7 +25,7 @@ public class RefillHandCards : IState
         _init = true;
     }
     
-    public RefillHandCards(TrialInfo currentTrial, Avatar avatar, float every)
+    public RefillHandCards(TrialInfo currentTrial, VRAvatar.Player avatar, float every)
     {
         _currentTrial = currentTrial;
         this.every = every;

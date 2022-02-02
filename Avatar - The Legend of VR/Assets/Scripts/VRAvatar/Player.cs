@@ -5,9 +5,9 @@ namespace VRAvatar
 {
 
     /// <summary>
-    /// Script interface to the Avatar controlled by the participant.
+    /// Script interface to the Player controlled by the participant.
     /// </summary>
-    public class Avatar : MonoBehaviour
+    public class Player : MonoBehaviour
     {
         public LeftHand leftHand;
         public SteamVR_Behaviour_Pose leftControllerPose;

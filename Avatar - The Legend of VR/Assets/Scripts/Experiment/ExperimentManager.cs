@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using Avatar = VRAvatar.Avatar;
+using VRAvatar;
 
 public class ExperimentManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class ExperimentManager : MonoBehaviour
     
     #region Editor Exposed
     
-    public Avatar Avatar;
+    public Player Avatar;
 
     public CardInformationScriptableObject[] cardInformation;
     
