@@ -4,18 +4,17 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-    // Start is called before the first frame update
 
-    public int steps; 
+    public int steps;
 
-    public void highlight(){
+    public void Highlight(){
         var outline = this.gameObject.GetComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
         outline.OutlineColor = new Color(0.78f, 0.41f, 0.39f);
         outline.OutlineWidth = 10f;
     }
 
-    public void dim(){
+    public void Dim(){
         var outline = this.gameObject.GetComponent<Outline>();
         outline.OutlineMode = Outline.Mode.OutlineAll;
         outline.OutlineColor = Color.yellow;
