@@ -12,7 +12,10 @@ public class Field : MonoBehaviour
     public Player occupiedBy = null;
 
     public Material defaultMaterial;
-    
+    public bool isAvatarField = false;
+    public AvatarField leftOption = null;
+    public AvatarField rightOption = null;
+
     void Start(){
          position = transform.position;
          defaultMaterial = this.GetComponent<Renderer>().material;

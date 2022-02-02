@@ -5,11 +5,15 @@ using UnityEngine.Serialization;
 
 public class AvatarField : Field
 {
-    // Start is called before the first frame update
+
 
     public int questionnareMatch = 50;
+    public GameObject avatar;
+
+    // Start is called before the first frame update
     void Start()
     {
+        // generate avatar for field according to questionnareMatch
         
     }
 

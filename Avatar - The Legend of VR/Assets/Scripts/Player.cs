@@ -5,8 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Start is called before the first frame update
-
-    float speed = 20f; 
+    float speed = 4f; 
 
     public bool isMoving = false; 
 
@@ -23,14 +22,19 @@ public class Player : MonoBehaviour
     public bool started = false;
 
     public Material defaultMaterial; 
-    public Material highlightMaterial; 
+    public Material highlightMaterial;
+
+    private Animator animator;
+    private Companion companion;
 
 
    void Start()
     {
         currentField = startingField;
-        transform.position = currentField.position;
+        Debug.Log("current field:"+ currentField+ ", position:"+ currentField.position+ ", transform position:"+ currentField.transform.position);
+        transform.position = currentField.transform.position;
         defaultMaterial = this.GetComponent<Renderer>().material;
+        animator = this.GetComponent<Animator>();
     }
 
       Field findNextField(Field field, bool previous = false){
@@ -117,32 +121,66 @@ public class Player : MonoBehaviour
             this.currentPath = findPath(steps, this.currentField);
         }
 
-        Field nextFieldInPath; 
+        Field nextFieldInPath;
+
+        if (animator)
+        {
+            animator.SetBool("isWalking", true);
+        }
+
 
         // move from each field in the path to the next one
         while(this.currentPath.Count > 0){
             this.currentField.occupiedBy = null; // leave the field
             nextFieldInPath = this.currentPath[0];
+            
+
+            if((this.currentPath.Count == 1 || nextFieldInPath.isAvatarField) && animator)
+            {
+                animator.SetBool("isWalking", false);
+            }
 
             Vector3 nextPos = findPositionOfNextField(nextFieldInPath, this.currentPath.Count == 1); 
             
             // the next field is going to be occupied by the current player
-            nextFieldInPath.occupiedBy = this;            
+            nextFieldInPath.occupiedBy = this;
+            Quaternion nextRotation = nextFieldInPath.transform.rotation;
 
             // move to the next Field
-            while (MoveToNextField(nextPos)){yield return null;}
-            yield return new WaitForSeconds(0.1f);
+            while (MoveToNextField(nextPos, nextRotation)){yield return null;}
+            //yield return new WaitForSeconds(0.1f);
 
             this.currentField = nextFieldInPath;
+
+            if (currentField.isAvatarField)
+            {
+                // TODO: stop and allow for avatar selection
+                yield return new WaitForSeconds(0.5f);
+                // resume walking
+                if (currentPath.Count > 1 && animator)
+                {
+                    animator.SetBool("isWalking", true);
+                }
+            }
+
             this.currentPath.RemoveAt(0);
         }
+
         
+
         // the player finished his path thus it's not longer moving
         isMoving = false;         
     }
 
-    bool MoveToNextField(Vector3 goal){
+    bool MoveToNextField(Vector3 goal, Quaternion targetRotation){
         // moves this player to the given goal position
+
+        // The step size is equal to speed times frame time.
+        var step = 200f * Time.deltaTime;
+
+        // Rotate our transform a step closer to the target's.
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, step);
+
         return goal != (transform.position = Vector3.MoveTowards(transform.position, goal, speed * Time.deltaTime));
     }
 

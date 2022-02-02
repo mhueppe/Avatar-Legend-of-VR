@@ -20,7 +20,9 @@ public class ObjectClicker : MonoBehaviour {
 
     public int steps;
 
-    public bool lastWasCard; 
+    public bool lastWasCard;
+
+    public Material avatarHighlighMat;
     
     private void Start()
     {
@@ -72,7 +74,9 @@ public class ObjectClicker : MonoBehaviour {
                 Player selectedPlayer = (Player)selection.gameObject.GetComponent(typeof(Player));
                 if (selectedPlayer != null && this.steps != 0){
                     HandlePlayer(selectedPlayer, selection);
-                }                                   
+                }                              
+                
+                // if the selection is an avatar, highlight the field and store it
             }
         }
 
@@ -86,7 +90,7 @@ public class ObjectClicker : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)){
             this.steps = selectedCard.steps;
             Debug.Log(this.steps);
-            Destroy(selection.gameObject);
+            //Destroy(selection.gameObject);
         }
     }
 
