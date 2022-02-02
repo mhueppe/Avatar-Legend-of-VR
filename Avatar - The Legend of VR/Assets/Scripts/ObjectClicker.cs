@@ -43,7 +43,7 @@ public class ObjectClicker : MonoBehaviour {
             lastPath = null; 
         }else if (_selection != null && this.lastWasCard) {
             Card selectedCard = (Card)_selection.gameObject.GetComponent(typeof(Card));
-            selectedCard.dim();
+            selectedCard.Dim();
             this.lastWasCard = false;
             _selection = null; 
 
@@ -80,7 +80,7 @@ public class ObjectClicker : MonoBehaviour {
 
     private void HandleCard(Card selectedCard, Transform selection){
         this.lastWasCard = true;
-        selectedCard.highlight();
+        selectedCard.Highlight();
         this._selection = selection; 
 
         if (Input.GetMouseButtonDown(0)){
