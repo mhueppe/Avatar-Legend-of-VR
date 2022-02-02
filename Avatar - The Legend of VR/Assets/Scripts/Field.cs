@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
+    public bool isAvatarField;
+    
     public Vector3 position;
     
     public Field prevField; 

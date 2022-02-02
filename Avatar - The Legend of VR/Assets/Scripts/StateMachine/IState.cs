@@ -1,9 +1,6 @@
-namespace StateMachine
+public interface IState
 {
-    public interface IState
-    {
-        public void OnStateEnter();
-        public void Tick();
-        public void OnStateExit();
-    }
+    public void OnStateEnter();
+    public void Tick();
+    public void OnStateExit();
 }
