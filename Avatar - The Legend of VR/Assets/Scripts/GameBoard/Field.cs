@@ -6,6 +6,7 @@ public class Field : MonoBehaviour
 {
     public bool isAvatarField;
 
+    public int questionnaireMatch;
     public Vector3 position => transform.position;
     public Quaternion quaternion => transform.rotation;
     
