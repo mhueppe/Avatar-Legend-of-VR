@@ -24,12 +24,12 @@ public class InstantiateAvatar : MonoBehaviour
     private readonly string[] _longHair= { "hair5", "hair6", "hair7"};
 
     // Start is called before the first frame update
-    private void SetBasedOnPreferenceLevel(bool randomClothingStyle, bool randomClothingColor, bool randomHairLength, bool randomHairColor, bool randomHat, bool randomSkinColor, bool randomEyeColor, bool randomGlasses)
+    private void SetBasedOnPreferenceLevel(int preferenceLevel, bool randomClothingStyle, bool randomHairLength, bool randomHat, bool randomGlasses)
     {
-        SetClothing(randomClothingStyle, randomClothingColor);
-        SetHair(randomHairLength, randomHairColor, SetHat(randomHat));
-        SetSkinColor(randomSkinColor);
-        SetEyeColor(randomEyeColor);
+        SetClothing(randomClothingStyle, preferenceLevel);
+        SetHair(randomHairLength, preferenceLevel, SetHat(randomHat));
+        SetSkinColor(preferenceLevel);
+        SetEyeColor(preferenceLevel);
         SetGlasses(randomGlasses);
     }
     void Start()
@@ -38,38 +38,36 @@ public class InstantiateAvatar : MonoBehaviour
         _avatar = Instantiate(avatarPrefab, avatarField.position, avatarField.quaternion).GameObject();
         _avatar.GetComponent<global::Avatar>().QuestionnaireMatch = questionnaireMatch;
 
+        bool randomSwitch = Random.value > 0.5; 
         switch (questionnaireMatch)
         {
             case 0:
-                SetBasedOnPreferenceLevel(true, true, true, true, true, true, true, true);
+                SetBasedOnPreferenceLevel(0,true, true, true, true);
                 break;
                 
-            case 20:
-                SetBasedOnPreferenceLevel(true, true, true, false, false, true, true, Random.value > 0.5);
+            case 1:
+                SetBasedOnPreferenceLevel(1,true, true, randomSwitch, !randomSwitch);
                 break;
             
-            case 40:
-                SetBasedOnPreferenceLevel(true, false, true, false, Random.value > 0.5, true, true, false);
+            case 2:
+                SetBasedOnPreferenceLevel(2,true, true, false, false);
                 break;
-            case 60:
-                SetBasedOnPreferenceLevel(true, false, true, false, Random.value > 0.5, true, false, false);
+
+            case 3:
+                SetBasedOnPreferenceLevel(3,true, false, false, false);
                 break;
-            
-            case 80:
-                SetBasedOnPreferenceLevel(false, false, false, true, Random.value > 0.5, true, false, Random.value > 0.5);
-                break;
-                
-            case 100:
-                SetBasedOnPreferenceLevel(false, false, false, false, false, false, false, false);
+
+            case 4:
+                SetBasedOnPreferenceLevel(4,false, false, false, false);
                 break;
         }
 
     }
 
-    private void SetEyeColor(bool randomEyeColor)
+    private void SetEyeColor(int preferenceLevel)
     {
         // set skin color based on preferences
-        Color eyeColor = randomEyeColor ? RandomFromList(AvatarColors._eyeColors) : ParticipantPreferences.EyeColor;
+        Color eyeColor = AvatarColors.GetColorOnPreference(preferenceLevel, ParticipantPreferences.EyeColor, AvatarColors._eyeColors);
         eyeMaterial.color = eyeColor;
     }
     
@@ -129,7 +127,7 @@ public class InstantiateAvatar : MonoBehaviour
             }
     }
     
-    private void SetClothing(bool randomClothingStyle, bool randomClothingColor)
+    private void SetClothing(bool randomClothingStyle, int preferenceLevel)
     {
         // differentiate the two clothing types
         Enum clothingStyleTop, clothingStyleBottom;
@@ -147,19 +145,11 @@ public class InstantiateAvatar : MonoBehaviour
         }
         
         // set color based on preferences
-        Color colorTop, colorBottom; 
-        if (randomClothingColor)
-        {
-            colorTop = RandomColor();
-            colorBottom = RandomColor();
-        }
-        else
-        {
-            colorTop = ParticipantPreferences.FavouriteColor;
-            colorBottom = RandomFromList(new []{ParticipantPreferences.FavouriteColor * (float) 0.3, Color.black, ParticipantPreferences.FavouriteColor * (float) 1.1});
-        }
-        
-        // activate top clothing style (based on the preset preferences)
+        Color colorTop, colorBottom;
+        colorTop = AvatarColors.GetColorOnPreference(preferenceLevel, ParticipantPreferences.FavouriteColor, AvatarColors._eyeColors);
+        colorBottom = RandomFromList(new []{colorTop * (float) 0.3, Color.black, colorTop * (float) 1.1});
+
+            // activate top clothing style (based on the preset preferences)
         switch (clothingStyleTop)
         {
             case ClothingStyle.Casual:
@@ -188,21 +178,20 @@ public class InstantiateAvatar : MonoBehaviour
         }
     }
     
-    private void SetSkinColor(bool randomSkinColor)
+    private void SetSkinColor(int preferenceLevel)
     {
         // set skin color based on preferences
-        Color skin = RandomFromList(AvatarColors._skinColors);
-        var skinColor = randomSkinColor ? skin : ParticipantPreferences.SkinColor;
+        var skinColor = AvatarColors.GetColorOnPreference(preferenceLevel, ParticipantPreferences.SkinColor, AvatarColors._skinColors);
         SetColor(skinColor, FindChild("avatar_mesh"));
     }
 
-    private void SetHair(bool randomHairLength, bool randomHairColor, bool hat)
+    private void SetHair(bool randomHairLength, int preferenceLevel, bool hat)
     {
         // set hair length based on preferences
         var hairLength = randomHairLength ? GetRandomElement<HairLength>() : ParticipantPreferences.HairLength;
         
         // set color based on preferences
-        var hairColor = randomHairColor ? RandomFromList(AvatarColors._hairColors) : ParticipantPreferences.HairColor;
+        var hairColor = AvatarColors.GetColorOnPreference(preferenceLevel, ParticipantPreferences.HairColor, AvatarColors._hairColors);
         
         switch (hairLength)
         {

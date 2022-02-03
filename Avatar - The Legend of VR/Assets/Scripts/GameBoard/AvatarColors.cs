@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 public class AvatarColors
@@ -84,8 +85,10 @@ public class AvatarColors
     /// <param name="favoriteColor">Color which was chosen in the questionnaire</param>
     /// <param name="colorsToChooseFrom">List of Color to return the best matching one</param>
     /// <returns>Color which matches the favoriteColor to the Degree of preferenceLevel</returns>
-    public Color GetColorOnPreference(int preferenceLevel, Color favoriteColor, Color[] colorsToChooseFrom)
+    public static Color GetColorOnPreference(int preferenceLevel, Color favoriteColor, Color[] colorsToChooseFrom)
     {
+        if (preferenceLevel == 4) return favoriteColor;
+        
         Color closestColorToPreference = default;
         float lastClosestDistance = 30;
         float wantedDistance = WantedDistance(preferenceLevel);
@@ -106,16 +109,15 @@ public class AvatarColors
 
     /// <param name="preferenceLevel"> preference Level you want the attributed Cielab distance from</param>
     /// <returns>Cielab distances based on preference level</returns>
-    private float WantedDistance(int preferenceLevel)
+    private static float WantedDistance(int preferenceLevel)
     {
         return preferenceLevel switch
         {
             0 => 30,
-            20 => 25,
-            40 => 20,
-            60 => 15,
-            80 => 10,
-            _ => 0
+            1 => 22.5f,
+            2 => 15,
+            3 => 7.5f,
+            _ => throw new ArgumentOutOfRangeException(nameof(preferenceLevel), preferenceLevel, null)
         };
     }
 
@@ -123,7 +125,7 @@ public class AvatarColors
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns>distance between two floats</returns>
-    private float distance(float x, float y)
+    private static float distance(float x, float y)
     {
         return Mathf.Abs(x-y);
     }
