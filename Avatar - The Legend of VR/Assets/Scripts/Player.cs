@@ -38,13 +38,6 @@ public class Player : MonoBehaviour
     }
 
       Field findNextField(Field field, bool previous = false){
-            // checks whether or not the current field is a home field. if it is check if it's from your respective team
-            if(field.GetType() == typeof(HomeField) && ((HomeField)field).team == this.team && started){
-                // if both condition hold check if you've already passed this starting point (if you just started your round or not)
-                // if you did a full leap set the next field to the goal field 
-                // return ((HomeField)field).passedField;
-                return ((HomeField)field).nextField;
-            }
             
             started = true; 
             // if one of these condition does not hold the next field is the next in line

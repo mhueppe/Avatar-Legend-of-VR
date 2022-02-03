@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
 
-/* Copyright (C) Xenfinity LLC - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by Bilal Itani <bilalitani1@gmail.com>, June 2017
- */
-
 public class ObjectClicker : MonoBehaviour {
 
     public float force = 5;
@@ -45,7 +39,7 @@ public class ObjectClicker : MonoBehaviour {
             lastPath = null; 
         }else if (_selection != null && this.lastWasCard) {
             Card selectedCard = (Card)_selection.gameObject.GetComponent(typeof(Card));
-            selectedCard.dim();
+            selectedCard.Dim();
             this.lastWasCard = false;
             _selection = null; 
 
@@ -84,11 +78,11 @@ public class ObjectClicker : MonoBehaviour {
 
     private void HandleCard(Card selectedCard, Transform selection){
         this.lastWasCard = true;
-        selectedCard.highlight();
+        selectedCard.Highlight();
         this._selection = selection; 
 
         if (Input.GetMouseButtonDown(0)){
-            this.steps = selectedCard.steps;
+            this.steps = (int)selectedCard.steps;
             Debug.Log(this.steps);
             //Destroy(selection.gameObject);
         }
@@ -103,27 +97,13 @@ public class ObjectClicker : MonoBehaviour {
 
             if (this.steps == 13)
             {
-                if (selectedPlayer.currentField.nextField.GetType() == typeof(HomeField))
-                {   
-                    handlePath(1, selectedPlayer);
-                }
-                else
-                {
-                    handlePath(13, selectedPlayer);
-                }
+                handlePath(13, selectedPlayer);
             }
 
             if (this.steps == 1)
             {
-                if (selectedPlayer.currentField.nextField.GetType() == typeof(HomeField))
-                {
-                    handlePath(1, selectedPlayer);
-                }
-                else
-                {
-                    handlePath(1, selectedPlayer);
-                    handlePath(11, selectedPlayer);
-                }
+                handlePath(1, selectedPlayer);
+                handlePath(11, selectedPlayer);
             }
             
             if (this.steps == 4)
