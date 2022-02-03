@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace VRAvatar
 {
+    /// <summary>
+    /// Subscribes to changes on the touchpad and interpolates the animator parameters respectively.
+    /// </summary>
     [RequireComponent(typeof(Animator))]
     public class MoveThumb : MonoBehaviour
     {
@@ -19,7 +22,7 @@ namespace VRAvatar
         {
             // only take the x dim move thumb
             var x = vec.x;
-            _targetValue = (x + 1) / 2;
+            _targetValue = 1 - ((x + 1) / 2);
         }
 
         private void Update()

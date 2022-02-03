@@ -1,24 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Card : MonoBehaviour
 {
+    [SerializeField] private Outline outline;
 
-    public int steps;
+    private void Start()
+    {
+        outline = GetComponent<Outline>();
+        outline.OutlineWidth = 30;
+        outline.OutlineMode = Outline.Mode.OutlineVisible;
+    }
+    
+    public CardValues steps;
 
-    public void Highlight(){
-        var outline = this.gameObject.GetComponent<Outline>();
-        outline.OutlineMode = Outline.Mode.OutlineAndSilhouette;
-        outline.OutlineColor = new Color(0.78f, 0.41f, 0.39f);
-        outline.OutlineWidth = 10f;
+    public void Highlight() => Highlight(new Color(0.78f, 0.41f, 0.39f));
+    public void Highlight(Color color)
+    {
+        if (outline == null) Start();
+        outline.enabled = true;
+        outline.OutlineColor = color;
     }
 
-    public void Dim(){
-        var outline = this.gameObject.GetComponent<Outline>();
-        outline.OutlineMode = Outline.Mode.OutlineAll;
-        outline.OutlineColor = Color.yellow;
-        outline.OutlineWidth = 0f;
+    public void Dim()
+    {
+        if (outline == null) Start();
+        outline.enabled = false;
     }
 
 }

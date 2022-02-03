@@ -1,19 +1,11 @@
 ﻿using System;
-
-/// <summary>
-/// Different experiment conditions
-/// </summary>
-public enum Condition
-{
-    Tutorial,
-    Control,
-    Custom
-}
+using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// Trial information which holds the current state of the experiment in each trail.
 /// </summary>
-public class TrialInfo
+public class TrialInfo : IRecordable
 {
     /// <summary>
     /// Id of the current participant.
@@ -25,36 +17,37 @@ public class TrialInfo
     /// </summary>
     public int trialNumber;
 
-    /// <summary>
-    /// Experiment condition the participant is currently in.
-    /// </summary>
-    public Condition condition;
+    public AvatarSetupInfos avatarSetupInfos;
 
-    public CardInformationScriptableObject cardInformation;
+    public CardSetupInfos cardSetupInfos;
 
     // todo add header cols
     public ParticipantPreferences participantPreferences;
 
     // todo maybe some more information on the character needed? @Michael
-
-    public string Header() 
-    {
-        return string.Format("{0},{1},{2},", 
-            nameof(participantID), 
-            nameof(trialNumber), 
-            nameof(condition)) + cardInformation.Header();
-    }
-
     
-    /// <summary>
-    /// Directly usable to record the experiment.
-    /// </summary>
-    /// <returns></returns>
-    public override string ToString()
+    public readonly List<CardValues> cardsPicked = new();
+    
+    #region IRecordable Implementation
+    public int NumberOfColumnsNeeded { get; }
+    public string[] Record()
     {
-        return string.Format("{0},{1},{2},", 
-            participantID, 
-            trialNumber, 
-            condition) + cardInformation;
+        throw new NotImplementedException();
     }
+
+    public string[] GetHeader()
+    {
+        throw new NotImplementedException();
+    }
+
+    public string OnRecordingExceptionCaught(Exception e)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnGetHeaderExceptionCaught(Exception e, int failedHeaderNo)
+    {
+        Debug.LogError($"Exception occured while recording: {e.Message}");
+    }
+    #endregion
 }

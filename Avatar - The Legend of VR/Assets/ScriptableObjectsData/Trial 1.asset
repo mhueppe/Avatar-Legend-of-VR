@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96c3c927cac24c37840e5b38c55f798f, type: 3}
   m_Name: Trial 1
   m_EditorClassIdentifier: 
-  numberOfHandCardsAtStart: 5
-  cardStaple:
-    cardValuesArray: 0100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  cardSetupInfos:
+    numberOfHandCardsAtStart: 4
+    cardStaple:
+      cardValuesArray: 040000000600000009000000060000000a000000050000000600000004000000010000000d000000
