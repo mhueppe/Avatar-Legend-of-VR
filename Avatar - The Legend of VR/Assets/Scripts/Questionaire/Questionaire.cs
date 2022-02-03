@@ -98,37 +98,36 @@ public class Questionaire : MonoBehaviour
 
     private void OnContinueClicked()
     {
-        if (EverythingAnswered())
-        {
-            var passMeSomewhere = new ParticipantPreferences
-            {
-                Age = Convert.ToInt32(_age.value),
-                SkinColor = _skinColorPickButtons[_lastSelectedSkinColorIndex].resolvedStyle.backgroundColor,
-                HairColor = _hairColorPickButtons[_lastSelectedHairColorIndex].resolvedStyle.backgroundColor,
-                HairLength = GetEnumResponse<HairLength>(_hairLength.index),
-                EyeColor = _eyeColorPickButtons[_lastSelectedEyeColorIndex].resolvedStyle.backgroundColor,
-                ClothingStyle = GetEnumResponse<ClothingStyle>(_clothingStyle.index),
-                FavouriteColor = _favouriteColor.value,
-                LikesGlasses = GetEnumResponse<Opinion>(_likesGlasses.value)
-            };
-        }
+        if (!EverythingAnswered()) return;
         
+        ExperimentController.Instance.Preferences = new ParticipantPreferences
+        {
+            Age = Convert.ToInt32(_age.value),
+            SkinColor = _skinColorPickButtons[_lastSelectedSkinColorIndex].resolvedStyle.backgroundColor,
+            HairColor = _hairColorPickButtons[_lastSelectedHairColorIndex].resolvedStyle.backgroundColor,
+            HairLength = GetEnumResponse<HairLength>(_hairLength.index),
+            EyeColor = _eyeColorPickButtons[_lastSelectedEyeColorIndex].resolvedStyle.backgroundColor,
+            ClothingStyle = GetEnumResponse<ClothingStyle>(_clothingStyle.index),
+            FavouriteColor = _favouriteColor.value,
+            LikesGlasses = GetEnumResponse<Opinion>(_likesGlasses.value),
+            LikesHats = GetEnumResponse<Opinion>(_likesHats.value)
+        };
+        ExperimentController.TransitionToNextScene();
     }
 
     private bool EverythingAnswered()
     {
         return WasChanged(_age) &&
                _lastSelectedSkinColorIndex != -1 &&
-               // don't care for hair color
+               _lastSelectedHairColorIndex != -1 &&
                WasChanged(_hairLength) &&
-               WasChanged(_eyeColor) &&
+               _lastSelectedEyeColorIndex != -1 &&
                WasChanged(_clothingStyle) &&
                // don't care for favourite color
                WasChanged(_likesGlasses);
 
     }
 
-    private bool WasChanged(ColorField color) => color.value != Color.black; 
     private bool WasChanged(TextField field) => !string.IsNullOrEmpty(field.value);
     private bool WasChanged(DropdownField field) => field.index != -1;
     private bool WasChanged(RadioButtonGroup group) => group.value != -1;

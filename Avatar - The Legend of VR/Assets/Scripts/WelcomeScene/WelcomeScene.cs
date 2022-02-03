@@ -10,15 +10,15 @@ public class WelcomeScene : MonoBehaviour
 {
     void Start()
     {
-        // Preload the questionnaire scene until the user starts with the experiment.
-        var loadSceneAsync = SceneManager.LoadSceneAsync("Questionaire", LoadSceneMode.Single);
-        loadSceneAsync.allowSceneActivation = false;
+        // // Preload the questionnaire scene until the user starts with the experiment.
+        // var loadSceneAsync = SceneManager.LoadSceneAsync("Questionaire", LoadSceneMode.Single);
+        // loadSceneAsync.allowSceneActivation = false;
 
         // Release the async loaded scene after the start button was pressed.
         GetComponent<UIDocument>()
-            .rootVisualElement
-            .Q<Button>("start-experiment")
-            .clickable
-            .clicked += () => loadSceneAsync.allowSceneActivation = true;
+                .rootVisualElement
+                .Q<Button>("start-experiment")
+                .clickable
+                .clicked += ExperimentController.TransitionToNextScene; //loadSceneAsync.allowSceneActivation = true;
     }
 }

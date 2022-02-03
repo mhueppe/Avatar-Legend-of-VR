@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -12,36 +13,98 @@ namespace VRAvatar
     /// Calculates the positions for <see cref="NumberOfCards"/> cards along a part of a circle arc specified with a <see cref="radius"/> and <see cref="cardSpan"/>.
     /// The <see cref="cardSpan"/> specifies how long the arc is where the cards will be placed.
     /// </summary>
-    public class CardPositioner : MonoBehaviour
+    public class HandCards : MonoBehaviour
     {
+        #region Positioning Math Fields
+        
         [SerializeField] private float height;
         [SerializeField] [Min(float.Epsilon)] private float radius = 1f;
         [SerializeField] [Min(float.Epsilon)] private float cardSpan = 0.8f;
-        private int NumberOfCards => handCards.Count;
+        public int NumberOfCards => _handCards.Count;
         public Vector3 offset = new(-135f, 0f, 0f);
 
         private Vector3 _center;
+        
+        #endregion
 
         public GameObject[] cardPrefabs;
-        private readonly List<Transform> handCards = new();
+        private readonly List<Card> _handCards = new();
+        private int _selectedCardIdx = -1;
 
+        public Card CurrentlySelectedCard => _selectedCardIdx != -1 ? _handCards[_selectedCardIdx] : null;
+
+        public UnityEvent<Card> onCardSelectionChanged;
+
+        private void Start() => onCardSelectionChanged.AddListener(HighlightCardOnSelection);
+       
+
+        /// <summary>
+        /// Sets the currently selected hand card with thumb selector.
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetSelectedCard(int value)
+        {
+            if (value == _selectedCardIdx)
+                return;
+
+            _selectedCardIdx = value;
+            onCardSelectionChanged?.Invoke(CurrentlySelectedCard);
+        }
+        
+        
+        /// <summary>
+        /// Add a card to the hand of the player.
+        /// </summary>
+        /// <param name="value"></param>
         public void AddCard(CardValues value)
         {
-            Debug.Log(value);
-            var newCard = Instantiate(cardPrefabs[(int)value - 1], transform);
-            handCards.Add(newCard.transform);
-            ApplyPositionsToCards(handCards);
+            var newCard = Instantiate(cardPrefabs[(int)value - 1], parent: this.transform);
+            var card = newCard.GetComponent<Card>();
+            card.steps = value;
+            _handCards.Add(card);
+            
+            ApplyPositionsToCards(_handCards.Select(c => c.transform).ToList());
+            SetSelectedCard(-1);
         }
 
+        /// <summary>
+        /// Remove a card from the hand cards of the player.
+        /// </summary>
+        /// <param name="card">The card to remove</param>
+        public void DeleteCard(Card card)
+        {
+            _handCards.Remove(card);
+            Destroy(card.gameObject);
+            ApplyPositionsToCards(_handCards.Select(c=>c.transform).ToList());
+            SetSelectedCard(-1);
+        }
+
+        #region Event Functions
+
+        /// <summary>
+        /// Subscribes to <see cref="LeftHand"/>.onTouchpadTouchedChanged and deselects selected cards if thumb isn't on the pad.
+        /// </summary>
+        /// <param name="leftHand"></param>
+        /// <param name="touched"></param>
+        public void OnTouchpadTouchedChanged(LeftHand leftHand, bool touched)
+        {
+            if (!touched) SetSelectedCard(-1);
+        }
+        
+        /// <summary>
+        /// Subscribes to <see cref="LeftHand"/>.onTouchpadChanged and set's the selected card based on the x pos of the touchpad pos.
+        /// </summary>
+        /// <param name="leftHand"></param>
+        /// <param name="vec"></param>
         public void OnTouchpadMoved(LeftHand leftHand, Vector2 vec)
         {
             switch (NumberOfCards)
             {
-                case 0:
-                    leftHand.SetSelectedCard(-1);
+                case 0: // if there is no card we can't select one.
+                    SetSelectedCard(-1);
                     return;
-                case 1:
-                    leftHand.SetSelectedCard(0);
+                case 1: // if only one card you can only select that card - no math needed for that.
+                    SetSelectedCard(0);
                     return;
             }
 
@@ -53,28 +116,24 @@ namespace VRAvatar
             for (var i = 0; i < NumberOfCards; i++)
                 borders[i] = Mathf.Abs(x - border * i - border / 2);
             var selectedCard = Array.IndexOf(borders, borders.Min());
-            leftHand.SetSelectedCard(selectedCard);
-
+            SetSelectedCard(selectedCard);
+        }
+        
+        /// <summary>
+        /// Subscribes to <see cref="onCardSelectionChanged"/> to highlight the selected card.
+        /// </summary>
+        /// <param name="card"></param>
+        private void HighlightCardOnSelection(Card card)
+        {
+            foreach (var handCard in _handCards)
+                handCard.Dim();
+            if (card != null) card.Highlight();
         }
 
-
-        // private void Update()
-        // {
-        //     while (handCards.Count != numberOfCards)
-        //     {
-        //         if (handCards.Count > numberOfCards)
-        //         {
-        //             foreach (var card in handCards.GetRange(numberOfCards, handCards.Count - numberOfCards))
-        //                 Destroy(card.gameObject);
-        //             
-        //             handCards = handCards.GetRange(0, numberOfCards);
-        //             break;
-        //         }
-        //         var go = Instantiate(cardPrefabs[0], transform, true);
-        //         handCards.Add(go.transform);
-        //     }
-        //     ApplyPositionsToCards(handCards);
-        // }
+        #endregion
+        
+        private void OnDestroy() => onCardSelectionChanged.RemoveAllListeners();
+        
 
         #region Positioning Math
 
@@ -117,6 +176,7 @@ namespace VRAvatar
                 transforms[i].right = -directions[i];
                 transforms[i].localEulerAngles += offset;
                 transforms[i].position = positions[i];
+                transforms[i].localPosition += new Vector3(0f, -0.0002f * i, 0f);
             }
         }
 
