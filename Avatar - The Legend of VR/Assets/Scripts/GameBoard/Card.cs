@@ -7,7 +7,7 @@ public class Card : MonoBehaviour
     private void Start()
     {
         outline = GetComponent<Outline>();
-        outline.OutlineWidth = 30;
+        outline.OutlineWidth = 10;
         outline.OutlineMode = Outline.Mode.OutlineVisible;
     }
     

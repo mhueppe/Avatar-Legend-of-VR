@@ -57,6 +57,6 @@ public class ExperimentController : MonoBehaviour
             participantPreferences = Preferences,
             trialNumber = _currentTrial,
             participantID = ParticipantID
-        };;
+        };
     }
 }

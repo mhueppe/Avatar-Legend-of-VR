@@ -27,11 +27,13 @@ namespace VRAvatar
         
         #endregion
 
-        public GameObject[] cardPrefabs;
+        [SerializeField] private GameObject[] cardPrefabs;
         private readonly List<Card> _handCards = new();
         private int _selectedCardIdx = -1;
 
         public Card CurrentlySelectedCard => _selectedCardIdx != -1 ? _handCards[_selectedCardIdx] : null;
+        public bool CanSelect { get; set; }
+        private bool _thumbOnTouchpad;
 
         public UnityEvent<Card> onCardSelectionChanged;
 
@@ -88,6 +90,7 @@ namespace VRAvatar
         /// <param name="touched"></param>
         public void OnTouchpadTouchedChanged(LeftHand leftHand, bool touched)
         {
+            _thumbOnTouchpad = touched;
             if (!touched) SetSelectedCard(-1);
         }
         
@@ -98,18 +101,20 @@ namespace VRAvatar
         /// <param name="vec"></param>
         public void OnTouchpadMoved(LeftHand leftHand, Vector2 vec)
         {
-            switch (NumberOfCards)
+            if (NumberOfCards == 0 || !_thumbOnTouchpad || !CanSelect)
             {
-                case 0: // if there is no card we can't select one.
-                    SetSelectedCard(-1);
-                    return;
-                case 1: // if only one card you can only select that card - no math needed for that.
-                    SetSelectedCard(0);
-                    return;
+                SetSelectedCard(-1);
+                return;
             }
 
-            var x = (vec.x + 1) / 2;
+            if (NumberOfCards == 1)
+            {
+                SetSelectedCard(0);
+                return;
+            }
 
+            var x = (-vec.x + 1) / 2;
+            
             var border = 1 / (float)NumberOfCards;
             var borders = new float[NumberOfCards];
 
@@ -137,7 +142,7 @@ namespace VRAvatar
 
         #region Positioning Math
 
-        public Vector3[] GetDirectionsOnArc()
+        private Vector3[] GetDirectionsOnArc()
         {
             if (NumberOfCards < 1)
                 return Array.Empty<Vector3>();
@@ -159,7 +164,7 @@ namespace VRAvatar
             return positions;
         }
 
-        public Vector3[] GetPointsOnArc()
+        private Vector3[] GetPointsOnArc()
         {
             _center = transform.position - transform.forward * (radius - height);
             return GetDirectionsOnArc()
@@ -167,11 +172,11 @@ namespace VRAvatar
                 .ToArray();
         }
 
-        public void ApplyPositionsToCards(List<Transform> transforms)
+        private void ApplyPositionsToCards(IReadOnlyList<Transform> transforms)
         {
             var directions = GetDirectionsOnArc();
             var positions = GetPointsOnArc();
-            for (int i = 0; i < directions.Length; i++)
+            for (var i = 0; i < directions.Length; i++)
             {
                 transforms[i].right = -directions[i];
                 transforms[i].localEulerAngles += offset;
