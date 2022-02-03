@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
-    public Vector3 position;
-    
-    public Field prevField; 
-    public Field nextField; 
+    public Vector3 position => transform.position;
+    public Quaternion quaternion => transform.rotation;
+
+    public Field prevField;
+    public Field nextField;
 
     public Player occupiedBy = null;
 
@@ -17,7 +18,6 @@ public class Field : MonoBehaviour
     public AvatarField rightOption = null;
 
     void Start(){
-         position = transform.position;
          defaultMaterial = this.GetComponent<Renderer>().material;
      }
 }
