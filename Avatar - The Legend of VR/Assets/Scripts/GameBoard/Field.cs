@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Field : MonoBehaviour
 {
+    public bool isAvatarField;
+
+    public int questionnaireMatch;
     public Vector3 position => transform.position;
     public Quaternion quaternion => transform.rotation;
 
@@ -13,7 +16,6 @@ public class Field : MonoBehaviour
     public Player occupiedBy = null;
 
     public Material defaultMaterial;
-    public bool isAvatarField = false;
     public AvatarField leftOption = null;
     public AvatarField rightOption = null;
 
