@@ -22,10 +22,10 @@ namespace VRAvatar
         
         #region SteamVR Actions and Events
         
-        [SerializeField] private SteamVR_Action_Boolean isTouchingPad;
+        [SerializeField] private SteamVR_Action_Vector2 padPosition;
         public UnityEvent<LeftHand, Vector2> onTouchpadChanged;
         
-        [SerializeField] private SteamVR_Action_Vector2 padPosition;
+        [SerializeField] private SteamVR_Action_Boolean isTouchingPad;
         public UnityEvent<LeftHand, bool> onTouchpadTouchedChanged;
         
         [SerializeField] private SteamVR_Action_Boolean grabPressed;

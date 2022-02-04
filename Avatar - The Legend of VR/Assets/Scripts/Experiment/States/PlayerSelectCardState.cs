@@ -17,6 +17,7 @@ public class PlayerSelectCardState : IState
     {
         CardSelected = false;
         _player.leftHand.onGrabPressedDown.AddListener(OnHandelLeftHandGrabDown);
+        _player.leftHand.handCards.CanSelect = true;
     }
   
 
@@ -35,6 +36,9 @@ public class PlayerSelectCardState : IState
 
     public void Tick() { }
 
-    public void OnStateExit() => _player.leftHand.onGrabPressedDown.RemoveListener(OnHandelLeftHandGrabDown);
-    
+    public void OnStateExit()
+    {
+        _player.leftHand.handCards.CanSelect = false;
+        _player.leftHand.onGrabPressedDown.RemoveListener(OnHandelLeftHandGrabDown);
+    }
 }

@@ -22,7 +22,7 @@ namespace VRAvatar
         {
             // only take the x dim move thumb
             var x = vec.x;
-            _targetValue = 1 - ((x + 1) / 2);
+            _targetValue = (x + 1) / 2;
         }
 
         private void Update()
