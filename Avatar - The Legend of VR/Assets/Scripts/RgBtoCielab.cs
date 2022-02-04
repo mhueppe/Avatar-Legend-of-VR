@@ -1,3 +1,5 @@
+using System.Diagnostics.Tracing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -84,5 +86,86 @@ public static class RgBtoCielab
         
         return distance;
     }
+
+
+    public static Color ColorFromDistance(Color fav, float distance)
+    {
+        // Color in Cielab Space umrechnen
+        var c = RgbtoLab(fav);
+        var random = Random.Range(0, 100);
+
+        var uVec = Vector3.Normalize(new Vector3(0, Random.Range(-1, 1), 0));
+
+        var newPosition  = c + distance * uVec;
+
+        var rgb = LabToRGB.LabtoRGB(newPosition);
+
+        return new Color(rgb.x, rgb.y, rgb.z);
+        
+    }
+    
+    
+    // var AandBonly = new Vector2(c.y, c.z);
+
+    // var degree = Random.Range(0f, 360f);
+        
+    // All possible Colors in Cielab with this Distance
+    // distance is radius of circle around fave color 2D
+
+    // var x_OnCircle = AandBonly.x + distance * Mathf.Cos(degree);
+    // var y_onCircle = AandBonly.y + distance * Mathf.Sin(degree);
+        
+    // From Cielab to RGB
     
 }
+
+public static class LabToRGB
+
+{
+    private static float Invers(float division)
+    {
+        var delta = 6 / 29f;
+        if (division > delta)
+            return Mathf.Pow(division, 3);
+        return 3 * Mathf.Pow(delta, 2) * (division - 4 / 29f);
+
+    }
+    private static Vector3 LabtoXYZ(Vector3 cielab)
+    {
+        var xn = 95.047f;
+        var yn = 100;
+        var zn = 108.883f;
+
+        var commonDiv = (cielab.x + 16) / 116;
+
+
+        var fx = xn * Invers(commonDiv + cielab.y/500);
+        var fy = yn * Invers(commonDiv);
+        var fz = zn * Invers(commonDiv - cielab.z/200);
+
+        return new Vector3(fx, fy, fz);
+
+
+
+    }
+
+    private static Vector3 XYZtoRGB(Vector3 cielab)
+    {
+        var r = 3.2404542f * cielab.x - 1.5371385f * cielab.y - 0.4985314f * cielab.z;
+        var g = -0.9692660f * cielab.x + 1.8760108f * cielab.y + 0.0415560f * cielab.z;
+        var b =  0.0556434f * cielab.x + 0.2040259f * cielab.y+ 1.0572252f * cielab.z;
+
+        return new Vector3(r, g, b);
+
+    }
+    
+    public static Vector3 LabtoRGB(Vector3 lab)
+
+    {
+        var rgb = XYZtoRGB(LabtoXYZ(lab));
+        return new Vector3(rgb.x, rgb.y, rgb.z);
+    }
+
+
+}
+

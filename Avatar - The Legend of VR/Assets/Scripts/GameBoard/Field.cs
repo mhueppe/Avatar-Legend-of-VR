@@ -5,8 +5,17 @@ using UnityEngine;
 public class Field : MonoBehaviour
 {
     public bool isAvatarField;
+    
+    public enum LevelOfMatch
+    {
+        Opposite,
+        LessOpposite,
+        SlightMatch,
+        BetterMatch,
+        FullMatch
+    }
 
-    public int questionnaireMatch;
+    public LevelOfMatch questionnaireMatch;
     public Vector3 position => transform.position;
     public Quaternion quaternion => transform.rotation;
     

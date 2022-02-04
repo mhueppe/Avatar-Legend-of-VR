@@ -421,6 +421,8 @@ MonoBehaviour:
   - {fileID: 469290180}
   - {fileID: 276266441}
   - {fileID: 1842666522}
+  - {fileID: 1842666522}
+  - {fileID: 1842666522}
   avatarPrefab: {fileID: 2067368382018190879, guid: 49ea4600f3ae15640a8eb4c2a999c136, type: 3}
   eyeMaterial: {fileID: 2100000, guid: 0cd8439302d5f344f821731536f248c1, type: 2}
 --- !u!1001 &433074443

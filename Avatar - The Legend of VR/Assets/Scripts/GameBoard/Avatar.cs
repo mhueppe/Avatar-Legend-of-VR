@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Avatar : MonoBehaviour
 {
-    private int _questionnaireMatch;
-    public int QuestionnaireMatch { get => _questionnaireMatch; set => _questionnaireMatch = Mathf.Clamp(value, 0, 100); }
+    private Field.LevelOfMatch _questionnaireMatch;
+    public Field.LevelOfMatch QuestionnaireMatch { get; set ; }
 
 }
